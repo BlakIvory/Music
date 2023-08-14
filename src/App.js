@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Home, Login,Public } from "./containers/public";
+import { Routes,Route } from "react-router-dom";
+import path from "./ultis/path";
 
 
 function App() {
-  const {homeData}= useSelector(state=> state.app)
-  console.log(homeData);
   return (
-  
-    <div className="flex justify-center border border-red-500 items-center">
-      
+   <>
+    <div className="">
+    <Routes>
+      <Route path={path.PUBLIC} element={<Public></Public>}>
+        <Route path={path.HOME} element={<Home></Home>}></Route>
+        <Route path={path.LOGIN} element={<Login></Login>}></Route>
+        <Route path={path.STAR} element={<Home></Home>}></Route>
+      </Route>
+    </Routes>
     </div>
-   
+   </>
   );
 }
 
