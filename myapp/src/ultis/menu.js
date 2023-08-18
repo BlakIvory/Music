@@ -7,7 +7,7 @@ const { MdOutlineLibraryMusic,
 
 export const SideMenu = [
     {
-        path : 'mymusic',
+        path : 'home',
         text : 'Cá Nhân',
         icons: <MdOutlineLibraryMusic  size={24}/>
     },
