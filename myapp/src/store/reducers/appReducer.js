@@ -1,10 +1,10 @@
-import actionTypes from "../actions/actionTypes";
+import actionTypes from "../actions/ActionTypes";
 
 const initState = { 
     banner :[],
 }
 
-const appReducer = (state = initState, action) => {
+const AppReducer = (state = initState, action) => {
     switch (action.type) {
         case actionTypes.GET_HOME:
             return {
@@ -17,4 +17,4 @@ const appReducer = (state = initState, action) => {
     }
 }
 
-export default appReducer
+export default AppReducer

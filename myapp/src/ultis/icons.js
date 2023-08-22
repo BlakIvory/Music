@@ -1,9 +1,12 @@
 import {MdOutlineLibraryMusic,MdOutlineFeed} from 'react-icons/md'
-import {FaChartPie} from 'react-icons/fa'
-import {TbChartArcs3} from  'react-icons/tb'
-import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
+import {FaChartPie,FaPlay,FaPauseCircle} from 'react-icons/fa'
+import {TbChartArcs3 ,TbPlayerTrackPrevFilled,TbPlayerTrackNextFilled} from  'react-icons/tb'
+import {AiOutlineArrowLeft,AiOutlineArrowRight, AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 import { CgProfile} from 'react-icons/cg'
-import { BiSearch } from  'react-icons/bi'
+import { BiSearch, BiDotsHorizontalRounded } from  'react-icons/bi'
+import {CiRepeat,CiShuffle} from  'react-icons/ci'
+
+
 const icons = {
     MdOutlineLibraryMusic,
     FaChartPie,
@@ -13,6 +16,15 @@ const icons = {
     AiOutlineArrowRight,
     CgProfile,
     BiSearch,
+    AiFillHeart,
+    AiOutlineHeart,
+    BiDotsHorizontalRounded,
+    CiRepeat,
+    TbPlayerTrackPrevFilled,
+    TbPlayerTrackNextFilled,
+    CiShuffle,
+    FaPlay,
+    FaPauseCircle,
 }
 
 export default icons

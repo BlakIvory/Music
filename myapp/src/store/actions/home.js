@@ -1,5 +1,5 @@
 import * as apis from '../../apis'
-import ActionTypes from './actionTypes'
+import ActionTypes from './ActionTypes'
 export const getHome = () => async (dispatch) => {
     try {
         const response = await apis.getHome()

@@ -17,7 +17,7 @@ const Home = () => {
             < Slider/>
         </div>
 
-        <getHome />
+       <getHome/>
 
         </>
     )
