@@ -10,6 +10,10 @@ export { default as Slider } from './Slider'
 
 export { default as Player } from './Player'
 
+export { default as Lists } from './Lists'
+
+export { default as Song} from './Song'
+
 
 
 

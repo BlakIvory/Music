@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-export const getSong = (SongId) =>  new Promise(async(resolve,reject) => {
+export const apiGetSong = (SongId) =>  new Promise(async(resolve,reject) => {
     try{
         const response = await axios({
             url : '/song',
@@ -15,7 +15,7 @@ export const getSong = (SongId) =>  new Promise(async(resolve,reject) => {
     }
 })
 
-export const getDetailSong = (SongId) =>  new Promise(async(resolve,reject) => {
+export const apiGetDetailSong = (SongId) =>  new Promise(async(resolve,reject) => {
     try{
         const response = await axios({
             url : '/infosong',
@@ -25,6 +25,20 @@ export const getDetailSong = (SongId) =>  new Promise(async(resolve,reject) => {
          
         resolve(response)
   
+    }catch(error){
+        reject(error)
+    }
+})
+export const apiGetDetailPlaylist = (pl_id) =>  new Promise(async(resolve,reject) => {
+    try{
+        const response = await axios({
+            url : '/detailplaylist',
+            method : 'get',
+            params : { id :pl_id}
+        })
+         
+        resolve(response)
+        // console.log(response)
     }catch(error){
         reject(error)
     }
