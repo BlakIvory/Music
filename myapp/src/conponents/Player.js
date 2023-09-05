@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import React, { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import * as apis from "../apis";
 import icons from "../ultis/icons";
+import * as actions from "../store/actions";
+import moment from "moment";
 
 
 const {
@@ -16,21 +18,23 @@ const {
   FaPauseCircle,
 } = icons;
 
+var intervalId
+
+
 const Player = () => {
-  const audioElement = new Audio();
+  const audioElement = useRef(new Audio());
 
-  const { curSongId ,isplaying} = useSelector((state) => state.music);
+  const { curSongId, isPlaying } = useSelector((state) => state.music);
   const [songinfo, setSongInfo] = useState(null);
-  // const [isplaying, setIsPlaying] = useState(false);
-  const [source, setSource] = useState(null);
 
-  // console.log(curSongId);
+  const [source, setSource] = useState(null);
+  const [currentSecond,setCurrentSecond] = useState(0)
+  const thumRef = useRef()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    
     const fetchDetailSong = async () => {
       const [res1, res2] = await Promise.all([
-        
         apis.apiGetDetailSong(curSongId),
         apis.apiGetSong(curSongId),
       ]);
@@ -45,12 +49,58 @@ const Player = () => {
     fetchDetailSong();
   }, [curSongId]);
 
+  // console.log(source);
   useEffect(() => {
-    // audioElement.play()
-  }, [curSongId]);
+    // audioElement.current.pause()
+    // console.log(audioElement.current.currentTime)
+    // audioElement.current.currentTime=0
+    // console.log(audioElement.current.currentTime)
+    audioElement.current.src = source;
+    audioElement.current.load();
+
+    if (isPlaying) {
+      audioElement.current.play().catch((erro) => {});
+    }
+  }, [curSongId, source]);
+
+  useEffect(()=>{
+
+    if(isPlaying){
+        intervalId = setInterval(()=>{
+          let perc = Math.round(audioElement.current.currentTime *10000/songinfo.duration)/100
+           console.log(audioElement.current.currentTime)
+          console.log(perc)
+          thumRef.current.style.cssText= `right :${100-perc}%`
+          setCurrentSecond(Math.round(perc))
+        },1000)
+    }else{
+       intervalId && 
+      clearInterval(intervalId)
+    }
+  },[isPlaying])
+
+
+
 
   const handlTogglePlay = () => {
-    //  setIsPlaying((prev) => !prev);
+    if (isPlaying) {
+      console.log("pausing");
+      // setIsPlaying(false)
+      audioElement.current.pause();
+      
+      dispatch(actions.play(false));
+    } else {
+      audioElement.current.play();
+      console.log("playing");
+      dispatch(actions.play(true));
+    }
+    //   if(audioElement.current?.paused &&
+    //     audioElement.current?.currentTime > 0 && !audioElement.current?.ended) {
+
+    //     audioElement.current?.play();
+    //  } else {
+    //     audioElement.current?.pause();
+    //  }
   };
 
   return (
@@ -95,7 +145,7 @@ const Player = () => {
             className=" cursor-pointer p-2 mt-1  hover:text-[#0E8080] border border-gray-700 rounded-full"
             onClick={handlTogglePlay}
           >
-            {isplaying ? < FaPauseCircle size={30} /> : < FaPlay size={30} />}
+            {isPlaying ? <FaPauseCircle size={30} /> : <FaPlay size={30} />}
             {/* <FaPlay size={30} /> */}
           </span>
           {/* <span>
@@ -111,7 +161,13 @@ const Player = () => {
             <CiShuffle size={24} />
           </span>
         </div>
-        <div>prosess -spin</div>
+        <div className="w-full flex items-center justify-center gap-2 pb-5 ">
+          <span>{moment.utc(currentSecond*1000).format('mm:ss')}</span>
+            <div className="w-3/5 h-[3px] rounded-l-full rounded-r-full relative bg-gray-500">
+                <div ref={thumRef} className="absolute top-0 left-0  rounded-l-full rounded-r-full h-[3px] bg-green-500"></div>
+            </div>
+            {/* <span>{moment.utc(songinfo.duration*1000).format('mm:ss')}</span> */}
+        </div>
       </div>
 
       <div className="w-[30%] border border-green-500 flex-auto">volume</div>

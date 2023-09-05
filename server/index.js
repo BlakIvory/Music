@@ -5,7 +5,7 @@ const cors = require("cors")
 require('dotenv').config()
 const port = process.env.PORT || 8888
 
-console.log(process.env.PORT)
+// console.log(process.env.PORT)
 // Page Home
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'))

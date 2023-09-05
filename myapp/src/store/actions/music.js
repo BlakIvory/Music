@@ -12,3 +12,4 @@ export const play = (flag) => ({
     type : ActionTypes.PLAY,
     flag,
 })
+
