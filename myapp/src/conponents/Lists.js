@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment"
 import { Song } from "./";
-import icons from "../ultis/icons";
+
 
 const Lists = ({ songs, totalDuration }) => {
   console.log({ songs, totalDuration });

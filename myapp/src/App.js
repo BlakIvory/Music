@@ -6,6 +6,7 @@ import path from "./ultis/path";
 
 import { useEffect } from "react";
 import  * as actions  from './store/actions';
+// import { ToastContainer } from "react-toastify/dist/components";
 
 
 
@@ -17,6 +18,7 @@ function App() {
 
   return (
  
+    <>
     <div className="">
     <Routes>
       <Route path={path.PUBLIC} element={<Public></Public>}>
@@ -29,7 +31,23 @@ function App() {
         <Route path={path.STAR} element={<Home></Home>}></Route>
       </Route>
     </Routes>
+    
     </div>
+    {/* <ToastContainer
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="light"
+    /> */}
+      
+
+    </>
    
   );
 }

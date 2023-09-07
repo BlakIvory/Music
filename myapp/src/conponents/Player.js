@@ -4,8 +4,7 @@ import * as apis from "../apis";
 import icons from "../ultis/icons";
 import * as actions from "../store/actions";
 import moment from "moment";
-
-
+import {ToastContainer, toast } from 'react-toastify';
 const {
   AiOutlineHeart,
   AiFillHeart,
@@ -18,18 +17,19 @@ const {
   FaPauseCircle,
 } = icons;
 
-var intervalId
-
+var intervalId;
 
 const Player = () => {
-  const audioElement = useRef(new Audio());
+  const [audio, setAudio] = useState(new Audio());
 
   const { curSongId, isPlaying } = useSelector((state) => state.music);
-  const [songinfo, setSongInfo] = useState(null);
 
-  const [source, setSource] = useState(null);
-  const [currentSecond,setCurrentSecond] = useState(0)
-  const thumRef = useRef()
+  const [songInfo, setSongInfo] = useState(null);
+
+  const [currentSecond, setCurrentSecond] = useState(0);
+
+  const thumRef = useRef();
+  const trackRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,82 +40,81 @@ const Player = () => {
       ]);
       if (res1.data.err === 0) {
         setSongInfo(res1.data.data);
+        // setCurrentSecond(0)
       }
       if (res2.data.err === 0) {
-        setSource(res2.data.data[128]);
+        audio.pause();
+        setAudio(new Audio(res2.data.data["128"]));
+      }else{
+        setAudio(new Audio())
+        dispatch(actions.play(false))
+        toast.warning(res2.data.msg )
+        thumRef.current.style.cssText = `right: 100%`;
       }
     };
 
     fetchDetailSong();
   }, [curSongId]);
 
-  // console.log(source);
+
   useEffect(() => {
-    // audioElement.current.pause()
-    // console.log(audioElement.current.currentTime)
-    // audioElement.current.currentTime=0
-    // console.log(audioElement.current.currentTime)
-    audioElement.current.src = source;
-    audioElement.current.load();
-
+    intervalId && clearInterval(intervalId);
+    audio.pause()
+    audio.load();
+    // audio.currentTime= 0
     if (isPlaying) {
-      audioElement.current.play().catch((erro) => {});
+      audio.play().catch(()=>{console.log("chuyển bài trong khi phát")})
+      intervalId = setInterval(() => {
+        // console.log(audio?.currentTime)
+        let perc =
+          Math.round((audio.currentTime * 10000) / songInfo?.duration) / 100;
+        // console.log(perc);
+        thumRef.current.style.cssText = `right: ${100 - perc}%`;
+        setCurrentSecond(Math.round(audio.currentTime))
+      }, 200);
     }
-  }, [curSongId, source]);
-
-  useEffect(()=>{
-
-    if(isPlaying){
-        intervalId = setInterval(()=>{
-          let perc = Math.round(audioElement.current.currentTime *10000/songinfo.duration)/100
-           console.log(audioElement.current.currentTime)
-          console.log(perc)
-          thumRef.current.style.cssText= `right :${100-perc}%`
-          setCurrentSecond(Math.round(perc))
-        },1000)
-    }else{
-       intervalId && 
-      clearInterval(intervalId)
-    }
-  },[isPlaying])
+  }, [audio]);
 
 
 
+  // console.log(source);
+
+  const handleClickProressBar=(e)=>{
+    // console.log(e)
+    const track = trackRef.current.getBoundingClientRect()
+    console.log(track)
+    const percent = Math.round((e.clientX-track.left)*10000/track.width)/100
+    console.log(percent)
+    thumRef.current.style.cssText = `right: ${100 - percent}%`;
+    audio.currentTime = percent*songInfo.duration/100
+    setCurrentSecond(Math.round(percent*songInfo.duration/100))
+  }
 
   const handlTogglePlay = () => {
     if (isPlaying) {
       console.log("pausing");
-      // setIsPlaying(false)
-      audioElement.current.pause();
-      
+      audio.pause();
       dispatch(actions.play(false));
     } else {
-      audioElement.current.play();
+      audio.play();
       console.log("playing");
       dispatch(actions.play(true));
     }
-    //   if(audioElement.current?.paused &&
-    //     audioElement.current?.currentTime > 0 && !audioElement.current?.ended) {
-
-    //     audioElement.current?.play();
-    //  } else {
-    //     audioElement.current?.pause();
-    //  }
   };
 
   return (
     <div className="bg-main-400 px-4 h-full flex ">
       <div className="w-[30%]   flex items-center flex-auto  gap-4">
         <img
-          src={songinfo?.thumbnail}
+          src={songInfo?.thumbnail}
           alt="thumbail"
           className="w-16 h-16 object-cover rounded-md"
         />
         <div className="flex flex-col ">
           <span className="font-semibold text-gray-700 text-[15px]">
-            {songinfo?.title}
+            {songInfo?.title}
           </span>
-          <span className="text-xs">{songinfo?.artistsNames} </span>
+          <span className="text-xs">{songInfo?.artistsNames} </span>
         </div>
         <div className="flex gap-6 pl-2">
           <span>
@@ -162,11 +161,16 @@ const Player = () => {
           </span>
         </div>
         <div className="w-full flex items-center justify-center gap-2 pb-5 ">
-          <span>{moment.utc(currentSecond*1000).format('mm:ss')}</span>
-            <div className="w-3/5 h-[3px] rounded-l-full rounded-r-full relative bg-gray-500">
-                <div ref={thumRef} className="absolute top-0 left-0  rounded-l-full rounded-r-full h-[3px] bg-green-500"></div>
-            </div>
-            {/* <span>{moment.utc(songinfo.duration*1000).format('mm:ss')}</span> */}
+          <span>{moment.utc(currentSecond * 1000).format("mm:ss")}</span>
+          <div className="w-3/5 h-[3px]  hover:h-[8px]  rounded-l-full rounded-r-full relative cursor-pointer bg-gray-400"
+          onClick={handleClickProressBar}
+          ref={trackRef}>
+            <div
+              ref={thumRef}
+              className="absolute h-full top-0 bottom-0 left-0  rounded-l-full rounded-r-full h-[3px] bg-green-500"
+            ></div>
+          </div>
+          <span>{moment.utc(songInfo?.duration * 1000).format("mm:ss")}</span>
         </div>
       </div>
 
