@@ -6,7 +6,7 @@ import path from "./ultis/path";
 
 import { useEffect } from "react";
 import  * as actions  from './store/actions';
-// import { ToastContainer } from "react-toastify/dist/components";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -33,7 +33,7 @@ function App() {
     </Routes>
     
     </div>
-    {/* <ToastContainer
+    <ToastContainer
     position="top-right"
     autoClose={5000}
     hideProgressBar={false}
@@ -44,7 +44,7 @@ function App() {
     draggable
     pauseOnHover
     theme="light"
-    /> */}
+    />
       
 
     </>

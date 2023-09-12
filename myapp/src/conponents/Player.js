@@ -4,7 +4,8 @@ import * as apis from "../apis";
 import icons from "../ultis/icons";
 import * as actions from "../store/actions";
 import moment from "moment";
-import {ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const {
   AiOutlineHeart,
   AiFillHeart,
@@ -46,7 +47,11 @@ const Player = () => {
         audio.pause();
         setAudio(new Audio(res2.data.data["128"]));
       }else{
+        audio.currentTime= 0
+        audio.pause();
+
         setAudio(new Audio())
+        intervalId && clearInterval(intervalId);
         dispatch(actions.play(false))
         toast.warning(res2.data.msg )
         thumRef.current.style.cssText = `right: 100%`;
@@ -58,12 +63,14 @@ const Player = () => {
 
 
   useEffect(() => {
+    
     intervalId && clearInterval(intervalId);
-    audio.pause()
-    audio.load();
     // audio.currentTime= 0
+    audio.pause();
+    audio.load();
     if (isPlaying) {
-      audio.play().catch(()=>{console.log("chuyển bài trong khi phát")})
+      audio.currentTime= 0
+      audio.play().catch(()=>{})
       intervalId = setInterval(() => {
         // console.log(audio?.currentTime)
         let perc =
@@ -83,7 +90,7 @@ const Player = () => {
     // console.log(e)
     const track = trackRef.current.getBoundingClientRect()
     console.log(track)
-    const percent = Math.round((e.clientX-track.left)*10000/track.width)/100
+    const percent = Math.round(((e.clientX-track.left)*10000)/track.width)/100
     console.log(percent)
     thumRef.current.style.cssText = `right: ${100 - percent}%`;
     audio.currentTime = percent*songInfo.duration/100
