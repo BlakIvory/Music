@@ -7,6 +7,7 @@ import * as actions from "../store/actions";
 const { BsMusicNoteBeamed } = icons;
 
 const Song = ({ SongData }) => {
+  
   const dispatch = useDispatch();
 
   // console.log(SongData);
@@ -16,6 +17,7 @@ const Song = ({ SongData }) => {
       onClick={() => {
         dispatch(actions.setCurSingId(SongData?.encodeId))
         dispatch(actions.play(true))
+        dispatch(actions.playAlbum(true))
       }}
     >
       <div className=" flex items-center gap-3 flex-1 w-[150px] ">

@@ -2,6 +2,7 @@ import actionTypes from "../actions/ActionTypes";
 
 const initState = { 
     banner :[],
+    hot:[],
 }
 
 const AppReducer = (state = initState, action) => {
@@ -9,9 +10,10 @@ const AppReducer = (state = initState, action) => {
         case actionTypes.GET_HOME:
             return {
                 ...state,
-                banner : action.homeData?.find (item => item.sectionType === 'banner')||null
+                banner : action.homeData?.find (item => item.sectionId === 'hSlider')||null,
+                hot :    action.homeData?.find (item => item.sectionId === 'hEditorTheme')||{},
+                
             };
-    
         default:
             return state;
     }

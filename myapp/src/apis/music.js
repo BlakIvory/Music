@@ -38,7 +38,7 @@ export const apiGetDetailPlaylist = (pl_id) =>  new Promise(async(resolve,reject
         })
          
         resolve(response)
-        // console.log(response)
+        console.log(response)
     }catch(error){
         reject(error)
     }

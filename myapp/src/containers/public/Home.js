@@ -1,5 +1,5 @@
 import React ,{ useEffect}from "react";
-import { Header,Slider } from "../../conponents";
+import { Header,Slider ,Section} from "../../conponents";
 
 import * as apis from '../../apis'
 
@@ -11,7 +11,8 @@ const Home = () => {
         <>
         <div className="overflow-y-auto ">
             
-            < Slider/>
+            <Slider/>
+            <Section/>
         </div>
 
        <getHome/>

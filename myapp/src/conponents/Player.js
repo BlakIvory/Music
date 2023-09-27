@@ -4,8 +4,8 @@ import * as apis from "../apis";
 import icons from "../ultis/icons";
 import * as actions from "../store/actions";
 import moment from "moment";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const {
   AiOutlineHeart,
   AiFillHeart,
@@ -23,12 +23,12 @@ var intervalId;
 const Player = () => {
   const [audio, setAudio] = useState(new Audio());
 
-  const { curSongId, isPlaying } = useSelector((state) => state.music);
+  const { curSongId, isPlaying, songs } = useSelector((state) => state.music);
 
   const [songInfo, setSongInfo] = useState(null);
 
   const [currentSecond, setCurrentSecond] = useState(0);
-
+  const [ isRandom , SetisRandom] = useState(false)
   const thumRef = useRef();
   const trackRef = useRef();
   const dispatch = useDispatch();
@@ -46,14 +46,13 @@ const Player = () => {
       if (res2.data.err === 0) {
         audio.pause();
         setAudio(new Audio(res2.data.data["128"]));
-      }else{
-        audio.currentTime= 0
+      } else {
+        audio.currentTime = 0;
         audio.pause();
-
-        setAudio(new Audio())
+        setAudio(new Audio());
         intervalId && clearInterval(intervalId);
-        dispatch(actions.play(false))
-        toast.warning(res2.data.msg )
+        dispatch(actions.play(false));
+        toast.warning(res2.data.msg);
         thumRef.current.style.cssText = `right: 100%`;
       }
     };
@@ -61,41 +60,38 @@ const Player = () => {
     fetchDetailSong();
   }, [curSongId]);
 
-
   useEffect(() => {
-    
     intervalId && clearInterval(intervalId);
-    // audio.currentTime= 0
+    audio.currentTime = 0;
     audio.pause();
     audio.load();
     if (isPlaying) {
-      audio.currentTime= 0
-      audio.play().catch(()=>{})
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
       intervalId = setInterval(() => {
         // console.log(audio?.currentTime)
         let perc =
           Math.round((audio.currentTime * 10000) / songInfo?.duration) / 100;
         // console.log(perc);
         thumRef.current.style.cssText = `right: ${100 - perc}%`;
-        setCurrentSecond(Math.round(audio.currentTime))
+        setCurrentSecond(Math.round(audio.currentTime));
       }, 200);
     }
   }, [audio]);
 
-
-
   // console.log(source);
 
-  const handleClickProressBar=(e)=>{
+  const handleClickProressBar = (e) => {
     // console.log(e)
-    const track = trackRef.current.getBoundingClientRect()
-    console.log(track)
-    const percent = Math.round(((e.clientX-track.left)*10000)/track.width)/100
-    console.log(percent)
+    const track = trackRef.current.getBoundingClientRect();
+    console.log(track);
+    const percent =
+      Math.round(((e.clientX - track.left) * 10000) / track.width) / 100;
+    console.log(percent);
     thumRef.current.style.cssText = `right: ${100 - percent}%`;
-    audio.currentTime = percent*songInfo.duration/100
-    setCurrentSecond(Math.round(percent*songInfo.duration/100))
-  }
+    audio.currentTime = (percent * songInfo.duration) / 100;
+    setCurrentSecond(Math.round((percent * songInfo.duration) / 100));
+  };
 
   const handlTogglePlay = () => {
     if (isPlaying) {
@@ -108,9 +104,35 @@ const Player = () => {
       dispatch(actions.play(true));
     }
   };
+  const handleClickNextMusic = () => {
+    if (songs) {
+      let curIndexSong;
+      songs?.forEach((item, index) => {
+        if (item.encodeId == curSongId) curIndexSong = index;
+      });
+      console.log(curIndexSong);
+      dispatch(actions.setCurSingId(songs[curIndexSong + 1].encodeId));
+      dispatch(actions.play(true));
+    }
+  };
+  const handleClickPrevMusic = () => {
 
+      if (songs) {
+        let curIndexSong;
+        songs?.forEach((item, index) => {
+        if ((item.encodeId == curSongId)&&(curSongId!==0)) curIndexSong = index;
+        });
+        console.log(curIndexSong);
+        dispatch(actions.setCurSingId(songs[curIndexSong - 1].encodeId));
+        dispatch(actions.play(true));
+      }
+    
+  };
+  const handleRandomMusic= ()=>{
+
+  }
   return (
-    <div className="bg-main-400 px-4 h-full flex ">
+    <div className="bg-main-400 px-4 h-full flex m-1 pt-[5px]">
       <div className="w-[30%]   flex items-center flex-auto  gap-4">
         <img
           src={songInfo?.thumbnail}
@@ -144,34 +166,47 @@ const Player = () => {
           >
             <CiRepeat size={24} hover />
           </span>
-          <span className="cursor-pointer  hover:text-[#0E8080]">
+          <span
+            onClick={handleClickPrevMusic}
+            className={`${
+              !songs
+                ? " text-gray-500 "
+                : "cursor-pointer  hover:text-[#0E8080]"
+            }`}
+          >
             <TbPlayerTrackPrevFilled size={24} />
           </span>
           <span
             className=" cursor-pointer p-2 mt-1  hover:text-[#0E8080] border border-gray-700 rounded-full"
             onClick={handlTogglePlay}
           >
-            {isPlaying ? <FaPauseCircle size={30} /> : <FaPlay size={30} />}
-            {/* <FaPlay size={30} /> */}
+            {isPlaying ? <FaPauseCircle size={24} /> : <FaPlay size={24} />}
           </span>
-          {/* <span>
-            <FaPlay size={40} />
-          </span> */}
-          <span className="cursor-pointer  hover:text-[#0E8080]">
+          <span
+            onClick={handleClickNextMusic}
+            className={`${
+              !songs
+                ? " text-gray-500 "
+                : "cursor-pointer  hover:text-[#0E8080]"
+            }`}
+          >
             <TbPlayerTrackNextFilled size={24} />
           </span>
           <span
-            className="cursor-pointer  hover:text-[#0E8080]"
+            className={`cursor-pointer ${isRandom && 'text-[#0E8080]'}`}
             title="Phát ngẫu nhiên"
+            onClick={()=> SetisRandom(prev => !prev)}
           >
             <CiShuffle size={24} />
           </span>
         </div>
         <div className="w-full flex items-center justify-center gap-2 pb-5 ">
           <span>{moment.utc(currentSecond * 1000).format("mm:ss")}</span>
-          <div className="w-3/5 h-[3px]  hover:h-[8px]  rounded-l-full rounded-r-full relative cursor-pointer bg-gray-400"
-          onClick={handleClickProressBar}
-          ref={trackRef}>
+          <div
+            className="w-3/5 h-[3px]  hover:h-[8px]  rounded-l-full rounded-r-full relative cursor-pointer bg-gray-400"
+            onClick={handleClickProressBar}
+            ref={trackRef}
+          >
             <div
               ref={thumRef}
               className="absolute h-full top-0 bottom-0 left-0  rounded-l-full rounded-r-full h-[3px] bg-green-500"

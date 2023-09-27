@@ -4,11 +4,16 @@ import * as apis from "../../apis";
 import moment from "moment";
 import { Lists, Song } from "../../conponents";
 import { Scrollbars } from "react-custom-scrollbars";
+import { useDispatch } from "react-redux";
+import * as actions from "../../store/actions"
+
+
 
 
 const Album = () => {
   const { pl_id } = useParams();
   // console.log(pl_id);
+  const dispatch = useDispatch()
 
   const [playlistData, setPlaylistData] = useState({});
 
@@ -18,6 +23,7 @@ const Album = () => {
       // console.log(response);
       if (response.data.err === 0) {
         setPlaylistData(response.data?.data);
+        dispatch(actions.setPlaylist(response.data?.data?.song?.items))
       }
     };
     fetchDetailPlaylist();
@@ -25,7 +31,7 @@ const Album = () => {
 
   return (<>
   
-      <div className="flex gap-6 w-full h-full px-[59px]  ">
+      <div className="flex gap-6 w-full h-full px-[75px]  ">
         <div className="flex-none w-1/4 items-center justify-center gap-2">
           <img
             src={playlistData?.thumbnailM}
@@ -33,7 +39,6 @@ const Album = () => {
             className="w-full object-contain rounded-md"
           />
           <h2 className="text-[20px] font-bold text-gray-700 flex items-center justify-center">
-            {" "}
             {playlistData?.title}
           </h2>
           <p>
@@ -59,7 +64,7 @@ const Album = () => {
           </span>
           <div className="">
             <Lists
-              songs={playlistData?.song?.items}
+              
               totalDuration={playlistData?.song?.totalDuration}
             ></Lists>
           </div>
