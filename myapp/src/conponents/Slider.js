@@ -26,11 +26,11 @@ const Slider = () => {
       // console.log(item.encodeId)
       // dispatch(actions.setCurSingId(item.encodeId))
       // dispatch(actions.play(true))
-      const pathAlbum = item?.link?.split(".")[0];
+     
       // console.log(pathAlbum)
       // const idalbum = pathAlbum?.split('/')[3]
       //       console.log(idalbum)
-
+      const pathAlbum = item?.link?.split(".")[0];
       navigate(pathAlbum);
     } else {
       dispatch(actions.setPlaylist(null));
@@ -46,7 +46,7 @@ const Slider = () => {
         </p>
       </span>
       <div>
-        <div className="flex h-[250px]  w-[96%]  pl-[59px] pt-[10px] pr-[59px] ">
+        <div className="flex h-[200px]  w-[96%]  pl-[59px] pt-[10px] pr-[59px] ">
           <Swiper
             spaceBetween={30}
             slidesPerView={3}

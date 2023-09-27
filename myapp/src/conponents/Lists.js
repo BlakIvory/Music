@@ -10,7 +10,7 @@ const Lists = ({ totalDuration }) => {
     <div className=" w-full flex flex-col text-xs text-gray-600">
       <div className=" flex justify-between items-center p-[10px] font-semibold">
         <span className="">BÀI HÁT</span>
-        <span className="">ALBUM</span>
+        <span className="ml-[150px]">ALBUM</span>
         <span className="">THỜI LƯỢNG </span>
       </div>
       <div className="flex flex-col hover={value.toString()} ">

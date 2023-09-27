@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import  {React, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as apis from "../apis";
 import icons from "../ultis/icons";
@@ -28,7 +28,8 @@ const Player = () => {
   const [songInfo, setSongInfo] = useState(null);
 
   const [currentSecond, setCurrentSecond] = useState(0);
-  const [ isRandom , SetisRandom] = useState(false)
+  const [isRandom, SetisRandom] = useState(false);
+  const [isRepeat, SetisRepeat] = useState(false);
   const thumRef = useRef();
   const trackRef = useRef();
   const dispatch = useDispatch();
@@ -62,11 +63,9 @@ const Player = () => {
 
   useEffect(() => {
     intervalId && clearInterval(intervalId);
-    audio.currentTime = 0;
     audio.pause();
     audio.load();
     if (isPlaying) {
-      audio.currentTime = 0;
       audio.play().catch(() => {});
       intervalId = setInterval(() => {
         // console.log(audio?.currentTime)
@@ -81,10 +80,28 @@ const Player = () => {
 
   // console.log(source);
 
+  useEffect(() => {
+    const handleEnd = () => {
+      console.log("end");
+      if (isRepeat) {
+        handlRepeatMusic();
+      } else if (isRandom) {
+        handleRandomMusic();
+      } else {
+        handleClickNextMusic();
+      }
+    };
+    audio.addEventListener("ended", handleEnd);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnd);
+    };
+  }, [audio, isRepeat, isRandom]);
+
   const handleClickProressBar = (e) => {
     // console.log(e)
     const track = trackRef.current.getBoundingClientRect();
-    console.log(track);
+    // console.log(track);
     const percent =
       Math.round(((e.clientX - track.left) * 10000) / track.width) / 100;
     console.log(percent);
@@ -116,21 +133,29 @@ const Player = () => {
     }
   };
   const handleClickPrevMusic = () => {
+    if (songs) {
+      let curIndexSong;
+      songs?.forEach((item, index) => {
+        if (item.encodeId === curSongId && curSongId !== 0)
+          curIndexSong = index;
+      });
 
-      if (songs) {
-        let curIndexSong;
-        songs?.forEach((item, index) => {
-        if ((item.encodeId == curSongId)&&(curSongId!==0)) curIndexSong = index;
-        });
-        console.log(curIndexSong);
-        dispatch(actions.setCurSingId(songs[curIndexSong - 1].encodeId));
-        dispatch(actions.play(true));
-      }
-    
+      dispatch(actions.setCurSingId(songs[curIndexSong - 1].encodeId));
+      dispatch(actions.play(true));
+    }
   };
-  const handleRandomMusic= ()=>{
+  const handleRandomMusic = () => {
+    const random = Math.round(Math.random() * songs.length);
 
-  }
+    dispatch(actions.setCurSingId(songs[random].encodeId));
+    dispatch(actions.play(true));
+    // SetisRandom((prev) => !prev);
+  };
+  const handlRepeatMusic = () => {
+    audio.play();
+    // dispatch(actions.setCurSingId(curSongId));
+    dispatch(actions.play(true));
+  };
   return (
     <div className="bg-main-400 px-4 h-full flex m-1 pt-[5px]">
       <div className="w-[30%]   flex items-center flex-auto  gap-4">
@@ -161,8 +186,13 @@ const Player = () => {
       <div className="w-[40%] flex-auto flex flex-col gap-1 justify-center items-center">
         <div className="flex gap-8 justify-center items-center py-2">
           <span
-            className="cursor-pointer  hover:text-[#0E8080]"
+            className={`cursor-pointer ${isRepeat && "text-[#0E8080]"}`}
             title="Lặp lại"
+            onClick={() => {
+              SetisRepeat((prev) => !prev);
+              if(isRandom) {SetisRandom((prev) => !prev);}
+            }
+          }
           >
             <CiRepeat size={24} hover />
           </span>
@@ -193,9 +223,12 @@ const Player = () => {
             <TbPlayerTrackNextFilled size={24} />
           </span>
           <span
-            className={`cursor-pointer ${isRandom && 'text-[#0E8080]'}`}
+            className={`cursor-pointer ${isRandom && "text-[#0E8080]"}`}
             title="Phát ngẫu nhiên"
-            onClick={()=> SetisRandom(prev => !prev)}
+            onClick={() => {
+              SetisRandom((prev) => !prev)
+              if(isRepeat){ SetisRepeat((prev) => !prev)}
+            }}
           >
             <CiShuffle size={24} />
           </span>

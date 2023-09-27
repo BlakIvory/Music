@@ -4,7 +4,7 @@ import * as apis from "../../apis";
 import moment from "moment";
 import { Lists, Song } from "../../conponents";
 import { Scrollbars } from "react-custom-scrollbars";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector } from "react-redux";
 import * as actions from "../../store/actions"
 
 
@@ -14,7 +14,7 @@ const Album = () => {
   const { pl_id } = useParams();
   // console.log(pl_id);
   const dispatch = useDispatch()
-
+  const { curSongId, isPlaying, songs } = useSelector((state) => state.music);
   const [playlistData, setPlaylistData] = useState({});
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Album = () => {
           <img
             src={playlistData?.thumbnailM}
             alt="thumbnail"
-            className="w-full object-contain rounded-md"
+            className={`w-full object-contain shadow-md  ${isPlaying ? 'rounded-full animate-rotate-center' : 'rounded-md'} `}
           />
           <h2 className="text-[20px] font-bold text-gray-700 flex items-center justify-center">
             {playlistData?.title}

@@ -7,7 +7,6 @@ import * as actions from "../store/actions";
 const { BsMusicNoteBeamed } = icons;
 
 const Song = ({ SongData }) => {
-  
   const dispatch = useDispatch();
 
   // console.log(SongData);
@@ -15,12 +14,12 @@ const Song = ({ SongData }) => {
     <div
       className="flex justify-between w-full items-center p-[10px] border-t border-gray-400  hover:bg-gray-200 cursor-pointer"
       onClick={() => {
-        dispatch(actions.setCurSingId(SongData?.encodeId))
-        dispatch(actions.play(true))
-        dispatch(actions.playAlbum(true))
+        dispatch(actions.setCurSingId(SongData?.encodeId));
+        dispatch(actions.play(true));
+        dispatch(actions.playAlbum(true));
       }}
     >
-      <div className=" flex items-center gap-3 flex-1 w-[150px] ">
+      <div className=" flex items-center gap-3 flex-1 w-[250px] ">
         <span>
           <BsMusicNoteBeamed />
         </span>
@@ -29,7 +28,7 @@ const Song = ({ SongData }) => {
           alt="thumnailM"
           className=" w-10 h-10 object-cover rounded-md"
         ></img>
-        <span className=" flex flex-col">
+        <span className=" flex flex-col w-[250px]">
           <span className="text-sm font-semibold ">
             {SongData?.title.lenght > 20
               ? `${SongData?.title?.slice(0, 20)}...`

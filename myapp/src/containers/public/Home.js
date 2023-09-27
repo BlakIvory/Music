@@ -13,6 +13,7 @@ const Home = () => {
             
             <Slider/>
             <Section/>
+          
         </div>
 
        <getHome/>
