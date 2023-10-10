@@ -8,10 +8,10 @@ const Header = () => {
   return (
     <div className="flex justify-between w-full items-center">
       <div className="flex gap-4 w-full items-center">
-          <div className=" flex gap-6">
+          {/* <div className=" flex gap-6">
             <span><AiOutlineArrowLeft size={24}/></span>
             <span><AiOutlineArrowRight size={24}/></span>
-          </div>
+          </div> */}
           <div className="w-1/2">
             <Search />
           </div>

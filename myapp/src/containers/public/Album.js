@@ -6,10 +6,6 @@ import { Lists, Song } from "../../conponents";
 import { Scrollbars } from "react-custom-scrollbars";
 import { useDispatch ,useSelector } from "react-redux";
 import * as actions from "../../store/actions"
-
-
-
-
 const Album = () => {
   const { pl_id } = useParams();
   // console.log(pl_id);
@@ -29,52 +25,47 @@ const Album = () => {
     fetchDetailPlaylist();
   }, [pl_id]);
 
-  return (<>
-  
-      <div className="flex gap-6 w-full h-full px-[75px]  ">
-        <div className="flex-none w-1/4 items-center justify-center gap-2">
-          <img
-            src={playlistData?.thumbnailM}
-            alt="thumbnail"
-            className={`w-full object-contain shadow-md  ${isPlaying ? 'rounded-full animate-rotate-center' : 'rounded-md'} `}
-          />
-          <h2 className="text-[20px] font-bold text-gray-700 flex items-center justify-center">
-            {playlistData?.title}
-          </h2>
-          <p>
-            Tác Giả : <span>{playlistData?.artistsNames}</span>
-          </p>
-          <span className="flex flex-col items-center  text-gray-500 justify-center">
+  return (
+    <div className="flex gap-6 w-full h-full px-[75px]  ">
+      <div className="flex-none w-1/4 items-center justify-center gap-2">
+        <img
+          src={playlistData?.thumbnailM}
+          alt="thumbnail"
+          className={`w-full object-contain shadow-md  ${
+            isPlaying ? "rounded-full animate-rotate-center" : "rounded-md"
+          } `}
+        />
+        <h2 className="text-[20px] font-bold text-gray-700 flex items-center justify-center">
+          {playlistData?.title}
+        </h2>
+        <p>
+          Tác Giả : <span>{playlistData?.artistsNames}</span>
+        </p>
+        <span className="flex flex-col items-center  text-gray-500 justify-center">
+          <span>
+            Cập Nhật lần cuối :{" "}
             <span>
-              Cập Nhật lần cuối :{" "}
-              <span>
-                {moment
-                  .unix(playlistData?.contentLastUpdate)
-                  .format("DD/MM/YYYY")}
-              </span>{" "}
-            </span>
-            <span>{playlistData?.like} lượt yêu thích</span>
+              {moment
+                .unix(playlistData?.contentLastUpdate)
+                .format("DD/MM/YYYY")}
+            </span>{" "}
           </span>
-        </div>
-        <Scrollbars style={{ width: "100%", height: "80%" }}>
+          <span>{playlistData?.like} lượt yêu thích</span>
+        </span>
+      </div>
+      <Scrollbars style={{ width: "100%", height: "100%" }}>
         <div className="flex-auto pr-[59px] ">
           <span className="text-xl ">
             <span className="text-gray-700"> Chủ đề : </span>
             <span className="">{playlistData?.sortDescription}</span>
           </span>
           <div className="">
-            <Lists
-              
-              totalDuration={playlistData?.song?.totalDuration}
-            ></Lists>
+            {/* {console.log(playlistData?.song)} */}
+            <Lists totalDuration={playlistData?.song?.totalDuration}></Lists>
           </div>
         </div>
-        </Scrollbars>
-
-      </div>
-  
-    </>
-    
+      </Scrollbars>
+    </div>
   );
 };
 

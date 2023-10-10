@@ -5,27 +5,33 @@ import {AiOutlineArrowLeft,AiOutlineArrowRight, AiFillHeart, AiOutlineHeart} fro
 import { CgProfile} from 'react-icons/cg'
 import { BiSearch, BiDotsHorizontalRounded } from  'react-icons/bi'
 import {CiRepeat,CiShuffle} from  'react-icons/ci'
-import {BsMusicNoteBeamed} from 'react-icons/bs'
+import {BsMusicNoteBeamed ,BsMusicNoteList} from 'react-icons/bs'
+import {BiSolidVolumeFull} from 'react-icons/bi'
+import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 
 const icons = {
-    MdOutlineLibraryMusic,
-    FaChartPie,
-    TbChartArcs3,
-    MdOutlineFeed,
-    AiOutlineArrowLeft,
-    AiOutlineArrowRight,
-    CgProfile,
-    BiSearch,
-    AiFillHeart,
-    AiOutlineHeart,
-    BiDotsHorizontalRounded,
-    CiRepeat,
-    TbPlayerTrackPrevFilled,
-    TbPlayerTrackNextFilled,
-    CiShuffle,
-    FaPlay,
-    FaPauseCircle,
-    BsMusicNoteBeamed,
-}
+  MdOutlineLibraryMusic,
+  FaChartPie,
+  TbChartArcs3,
+  MdOutlineFeed,
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  CgProfile,
+  BiSearch,
+  AiFillHeart,
+  AiOutlineHeart,
+  BiDotsHorizontalRounded,
+  CiRepeat,
+  TbPlayerTrackPrevFilled,
+  TbPlayerTrackNextFilled,
+  CiShuffle,
+  FaPlay,
+  FaPauseCircle,
+  BiSolidVolumeFull,
+  BsMusicNoteList,
+  BsMusicNoteBeamed,
+  HiVolumeOff,
+  HiVolumeUp,
+};
 
 export default icons

@@ -1,24 +1,20 @@
 import React ,{ useEffect}from "react";
 import { Header,Slider ,Section} from "../../conponents";
-
+import { useSelector, useDispatch } from "react-redux";
 import * as apis from '../../apis'
 
 
 const Home = () => {
-
+  const { hot,top100 } = useSelector((state) => state.app);
     
     return (
-        <>
-        <div className="overflow-y-auto ">
-            
+       
+        <div className="overflow-y-auto h-full w-auto ">
             <Slider/>
-            <Section/>
-          
+            <Section data={ hot} />
+                <Section data={top100} />
+                <div className="w-full h-[250px]"></div>
         </div>
-
-       <getHome/>
-
-        </>
     )
 }
 export default Home

@@ -51,7 +51,7 @@ module.exports = {
       },
     },
     animation: {
-      "rotate-center": "rotate-center 1s linear infinity ;",
+      "rotate-center": "rotate-center 15s linear infinite ;",
     },
   },
   plugins: [],

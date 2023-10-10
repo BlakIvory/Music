@@ -19,6 +19,10 @@ export const playAlbum = (flag) => ({
 export const setPlaylist = (songs) => ({
     type: ActionTypes.PLAY_LIST,
     songs,
+});
+  export const setCurSongData = (data) => ({
+    type: ActionTypes.SET_CUR_SONG_DATA,
+    data,
   });
 export const fetchDetailPlaylist = (pl_id) => async (dispatch) => {
   try {

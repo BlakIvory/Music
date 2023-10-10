@@ -18,11 +18,10 @@ const CommonConfig = {
 }
 
 const musicConfig = {
-    ...CommonConfig,
-    key : 'music',
-    whilelist:['curSongId'],
-  
-}
+  ...CommonConfig,
+  key: "music",
+  whilelist: ["curSongId","curSongData"],
+};
 const rootReducer = combineReducers({
     app : AppReducer,
     music:persistReducer(musicConfig,musicReducer),

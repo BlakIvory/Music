@@ -14,7 +14,11 @@ export { default as Lists } from './Lists'
 
 export { default as Song} from './Song'
 
-export { default as Section} from './Section'
+export { default as Section } from './Section'
+
+export { default as SongItem } from "./SongItem";
+
+
 
 
 

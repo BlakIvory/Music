@@ -1,4 +1,4 @@
-import  {React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as apis from "../apis";
 import icons from "../ultis/icons";
@@ -6,6 +6,7 @@ import * as actions from "../store/actions";
 import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const {
   AiOutlineHeart,
   AiFillHeart,
@@ -16,11 +17,14 @@ const {
   CiShuffle,
   FaPlay,
   FaPauseCircle,
+  BsMusicNoteList,
+  HiVolumeOff,
+  HiVolumeUp,
 } = icons;
 
 var intervalId;
 
-const Player = () => {
+const Player = ({ setIsShowRightSidebar }) => {
   const [audio, setAudio] = useState(new Audio());
 
   const { curSongId, isPlaying, songs } = useSelector((state) => state.music);
@@ -33,6 +37,7 @@ const Player = () => {
   const thumRef = useRef();
   const trackRef = useRef();
   const dispatch = useDispatch();
+  var [volume,setVolume]=useState(70)
 
   useEffect(() => {
     const fetchDetailSong = async () => {
@@ -42,6 +47,7 @@ const Player = () => {
       ]);
       if (res1.data.err === 0) {
         setSongInfo(res1.data.data);
+        dispatch(actions.setCurSongData(res1.data.data));
         // setCurrentSecond(0)
       }
       if (res2.data.err === 0) {
@@ -97,6 +103,11 @@ const Player = () => {
       audio.removeEventListener("ended", handleEnd);
     };
   }, [audio, isRepeat, isRandom]);
+
+  useEffect(() => { 
+    audio.volume = volume /100
+  },[volume])
+
 
   const handleClickProressBar = (e) => {
     // console.log(e)
@@ -156,13 +167,16 @@ const Player = () => {
     // dispatch(actions.setCurSingId(curSongId));
     dispatch(actions.play(true));
   };
+
   return (
     <div className="bg-main-400 px-4 h-full flex m-1 pt-[5px]">
       <div className="w-[30%]   flex items-center flex-auto  gap-4">
         <img
           src={songInfo?.thumbnail}
           alt="thumbail"
-          className="w-16 h-16 object-cover rounded-md"
+          className={`w-16 h-16 object-cover  ${
+            isPlaying ? "rounded-full animate-rotate-center" : "rounded-md"
+          }`}
         />
         <div className="flex flex-col ">
           <span className="font-semibold text-gray-700 text-[15px]">
@@ -190,9 +204,10 @@ const Player = () => {
             title="Lặp lại"
             onClick={() => {
               SetisRepeat((prev) => !prev);
-              if(isRandom) {SetisRandom((prev) => !prev);}
-            }
-          }
+              if (isRandom) {
+                SetisRandom((prev) => !prev);
+              }
+            }}
           >
             <CiRepeat size={24} hover />
           </span>
@@ -226,8 +241,10 @@ const Player = () => {
             className={`cursor-pointer ${isRandom && "text-[#0E8080]"}`}
             title="Phát ngẫu nhiên"
             onClick={() => {
-              SetisRandom((prev) => !prev)
-              if(isRepeat){ SetisRepeat((prev) => !prev)}
+              SetisRandom((prev) => !prev);
+              if (isRepeat) {
+                SetisRepeat((prev) => !prev);
+              }
             }}
           >
             <CiShuffle size={24} />
@@ -242,14 +259,36 @@ const Player = () => {
           >
             <div
               ref={thumRef}
-              className="absolute h-full top-0 bottom-0 left-0  rounded-l-full rounded-r-full h-[3px] bg-green-500"
+              className="absolute h-[3px] top-0 bottom-0 left-0  rounded-l-full rounded-r-full  bg-green-500"
             ></div>
           </div>
           <span>{moment.utc(songInfo?.duration * 1000).format("mm:ss")}</span>
         </div>
       </div>
 
-      <div className="w-[30%] border border-green-500 flex-auto">volume</div>
+      <div className="w-[30%]  flex-auto text-[#0E8080] flex items-center justify-end gap-2">
+        <span onClick={() => setVolume((prev) => (+prev === 0 ? 70 : 0))}>
+          {volume > 1 ? <HiVolumeUp size={24} /> : <HiVolumeOff size={24} />}
+        </span>
+        <input
+          className="bg-main-500"
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={volume}
+          onChange={(e) => {
+            // console.log(e.target.value)
+            setVolume((volume = e.target.value));
+          }}
+        ></input>
+        <span
+          className={`text-black p-1 rounded-sm cursor-pointer bg-main-500 opacity-90 hover:opacity-100 tex`}
+          onClick={() => setIsShowRightSidebar((prev) => !prev)}
+        >
+          <BsMusicNoteList size={24} />
+        </span>
+      </div>
     </div>
   );
 };
