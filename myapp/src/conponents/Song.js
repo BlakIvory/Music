@@ -8,8 +8,8 @@ import * as actions from "../store/actions";
 
 const Song = ({ SongData }) => {
   const dispatch = useDispatch();
+  
 
-  // console.log(SongData);
   return (
     <div
       className="flex justify-between w-full items-center p-[10px] border-t border-gray-400  hover:bg-gray-200 cursor-pointer"
@@ -17,13 +17,25 @@ const Song = ({ SongData }) => {
         dispatch(actions.setCurSingId(SongData?.encodeId));
         dispatch(actions.play(true));
         dispatch(actions.playAlbum(true));
+        // console.log(SongData);
+        // var Recent = JSON.parse(localStorage.getItem("Recent")) || [];
+       
+        //   Recent.unshift(SongData); // Thêm giá trị vào đầu mảng
+        // localStorage.setItem("Recent", JSON.stringify(Recent));
+        // localStorage.removeItem("Recent");
+        
+       dispatch(
+         actions.setRecent({
+           thumbnail: SongData?.thumbnail,
+           title: SongData?.title,
+           artists: SongData?.artistsNames,
+           sid: SongData?.encodeId,
+         })
+       );
       }}
     >
       <div className=" flex items-center gap-3 flex-1 w-[250px] ">
 
-        <span>
-          
-        </span>
         <img
           src={SongData?.thumbnailM}
           alt="thumnailM"

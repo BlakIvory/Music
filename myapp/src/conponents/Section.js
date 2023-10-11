@@ -14,20 +14,16 @@ const Section = (data) => {
   return (
     <div className="mt-1 px-[59px] flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold">
-           {data?.data?.title}
-        </h1>
+        <h1 className="text-lg font-bold">{data?.data?.title}</h1>
         <span className="text-xs">Tất Cả</span>
       </div>
-      
+
       <div className="flex item-start gap-[28px] justify-between ">
         {data?.data?.items?.map((item) => (
           <div
             key={item.encodeId}
             className="flex flex-1 flex-col gap-2 items-start cursor-pointer"
-            onClick={()=>(
-              navigate(item?.link?.split('.')[0])
-            )}
+            onClick={() => navigate(item?.link?.split(".")[0])}
           >
             <img
               src={item.thumbnailM}
@@ -45,6 +41,7 @@ const Section = (data) => {
           </div>
         ))}
       </div>
+      <div className="w-full h-[500px]"></div>
     </div>
   );
 };

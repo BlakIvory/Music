@@ -6,7 +6,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 const Public = () => {
   const [isShowRightSidebar, setIsShowRightSidebar] = useState(true)
   return (
-    <div className="w-full h-screen relative flex flex-col bg-main-300">
+    <div className="w-full h-screen relative flex flex-col bg-main-300 ">
       <div className="w-full h-full flex flex-auto">
         <div className="w-[200px] h-full ">
           <SidebarLeft></SidebarLeft>
@@ -32,11 +32,13 @@ const Public = () => {
             <SidebarRight />
           </div>
         )}
+        
       </div>
 
       <div className=" fixed bottom-0 left-0 right-0 h-[100px] ">
         <Player setIsShowRightSidebar={setIsShowRightSidebar} />
       </div>
+      
     </div>
   );
 };

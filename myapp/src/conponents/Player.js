@@ -27,7 +27,7 @@ var intervalId;
 const Player = ({ setIsShowRightSidebar }) => {
   const [audio, setAudio] = useState(new Audio());
 
-  const { curSongId, isPlaying, songs } = useSelector((state) => state.music);
+  const { curSongId, isPlaying, songs,curSongData } = useSelector((state) => state.music);
 
   const [songInfo, setSongInfo] = useState(null);
 
@@ -47,6 +47,7 @@ const Player = ({ setIsShowRightSidebar }) => {
       ]);
       if (res1.data.err === 0) {
         setSongInfo(res1.data.data);
+        // console.log(res1.data.data);
         dispatch(actions.setCurSongData(res1.data.data));
         // setCurrentSecond(0)
       }
@@ -115,7 +116,7 @@ const Player = ({ setIsShowRightSidebar }) => {
     // console.log(track);
     const percent =
       Math.round(((e.clientX - track.left) * 10000) / track.width) / 100;
-    console.log(percent);
+    // console.log(percent);
     thumRef.current.style.cssText = `right: ${100 - percent}%`;
     audio.currentTime = (percent * songInfo.duration) / 100;
     setCurrentSecond(Math.round((percent * songInfo.duration) / 100));
@@ -136,11 +137,12 @@ const Player = ({ setIsShowRightSidebar }) => {
     if (songs) {
       let curIndexSong;
       songs?.forEach((item, index) => {
-        if (item.encodeId == curSongId) curIndexSong = index;
+        if (item.encodeId === curSongId) curIndexSong = index;
       });
       console.log(curIndexSong);
       dispatch(actions.setCurSingId(songs[curIndexSong + 1].encodeId));
       dispatch(actions.play(true));
+      // dispatch(actions.setCurSongData(curSongData));
     }
   };
   const handleClickPrevMusic = () => {
