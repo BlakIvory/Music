@@ -7,6 +7,6 @@ const path = {
     PLAYLIST__TITLE__PID: '/playlist/:title/:pl_id',
     SEARCH: 'tim-kiem',
     ALL: 'tat-ca',
-    SONG:'bai_hat'
+    SONG:'bai-hat'
 }
 export default path

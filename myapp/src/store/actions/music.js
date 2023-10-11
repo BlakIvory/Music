@@ -48,3 +48,26 @@ export const fetchDetailPlaylist = (pl_id) => async (dispatch) => {
     });
   }
 };
+
+export const search = (keyword) => async (dispatch) =>  {
+  try {
+    const response = await apis.apiSearch(keyword);
+    if (response?.data.err === 0) { 
+      dispatch({
+        type: ActionTypes.SEARCH,
+        data: response?.data.data,  
+      })
+    } else {
+      dispatch({
+        type: ActionTypes.SEARCH,
+        data:  null,
+      });
+    }
+
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.SEARCH,
+      data: null,
+    })
+  }
+}

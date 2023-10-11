@@ -8,6 +8,7 @@ const initState = {
   songs: null,
   curAlbumId: null,
   recentSongs: [],
+  searchData: null,
 };
 
 const musicReducer = (state = initState, action) => {
@@ -46,18 +47,23 @@ const musicReducer = (state = initState, action) => {
       // console.log(state.recentSongs);
       let songs = state.recentSongs;
       if (action.data) {
-        if (state.recentSongs?.some(i => i.sid === action.data.sid))
-        {
-          songs = songs.filter(i => i.sid !== action.data.sid)
-          }
-          if (songs.length > 10) {
-            songs = songs.filter((i, index, self) => index !== self.length - 1);
-          }
+        if (state.recentSongs?.some((i) => i.sid === action.data.sid)) {
+          songs = songs.filter((i) => i.sid !== action.data.sid);
+        }
+        if (songs.length > 10) {
+          songs = songs.filter((i, index, self) => index !== self.length - 1);
+        }
         songs = [action.data, ...songs];
       }
+
       return {
         ...state,
         recentSongs: songs,
+      };
+    case actionTypes.SEARCH:
+      return {
+        ...state,
+        searchData: action.data || null,
       };
     //  [action.data, ...state.recentSongs];
     default:

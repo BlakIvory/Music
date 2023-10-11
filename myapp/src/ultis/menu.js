@@ -18,7 +18,7 @@ export const SideMenu = [
     icons: <TbChartArcs3 size={24} />,
   },
   {
-    path: "zing-chart",
+    path: "",
     text: "ZingChart",
     end: true,
     icons: <FaChartPie size={24} />,

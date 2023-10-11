@@ -51,6 +51,7 @@ export const apiSearch = (keyword) => new Promise(async (resolve, reject) => {
             method: 'get',
             params: { keyword }
         })
+        resolve(response)
     } catch (error) {
         reject(error)
     }
