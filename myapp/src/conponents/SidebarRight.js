@@ -87,7 +87,7 @@ const SidebarRight = () => {
                   title={curSongData?.title}
                   artists={curSongData?.artistsNames}
                   sid={curSongData?.encodeId}
-                  sm={true}
+                  sm={false}
                 />
               ) : (
                 <div> Chưa Chọn bài hát</div>
@@ -111,7 +111,7 @@ const SidebarRight = () => {
                   title={item?.title}
                   artists={item?.artistsNames}
                   sid={item?.encodeId}
-                  sm={false}
+                  sm
                 />
               ))}
             </Scrollbars>

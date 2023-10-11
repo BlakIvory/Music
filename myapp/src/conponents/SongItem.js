@@ -4,7 +4,7 @@ import "moment/locale/vi";
 import { useDispatch } from "react-redux";
 import * as actions from "../store/actions/index";
 
-const SongItem = ({ thumbnail, title, artists, sid, style, sm }) => {
+const SongItem = ({ thumbnail, title, artists, sid, style, sm, luotnghe }) => {
   // console.log("sid :  " + sid )
   const dispatch = useDispatch();
   
@@ -27,18 +27,23 @@ const SongItem = ({ thumbnail, title, artists, sid, style, sm }) => {
         <img
           src={thumbnail}
           alt="thumnail"
-          className={`!${sm} ? 'w-[20px] h-[20px]' :' w-[35px] h-[35px]' object-cover rounded-md`}
+          className={`  object-cover rounded-md ${
+            sm ? "w-[50px] h-[50px]" : " w-[80px] h-[80px]"
+          }`}
         ></img>
-       
+
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">
-            {title}
-          </span>
+          <span className="text-sm font-semibold">{title}</span>
           {/* {SongData?.album?.title.lenght > 20
             ? `${SongData?.album?.title?.slice(0, 20)}...`
             : SongData?.album?.title} */}
           {/* {console.log(artists)} */}
           <span className="text-sc opacity-70">{artists}</span>
+          {luotnghe ? (
+            <span className="text-sc opacity-70">lượt nghe :{luotnghe}</span>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

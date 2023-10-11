@@ -18,4 +18,3 @@ export const getHome = () =>  new Promise(async(resolve,reject) => {
 
 
 
-

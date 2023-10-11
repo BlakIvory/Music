@@ -17,15 +17,15 @@ export const SideMenu = [
 
     icons: <TbChartArcs3 size={24} />,
   },
-  {
-    path: "",
-    text: "ZingChart",
-    end: true,
-    icons: <FaChartPie size={24} />,
-  },
-  {
-    path: "follow",
-    text: "Theo dõi",
-    icons: <MdOutlineFeed size={24} />,
-  },
+  // {
+  //   path: "",
+  //   text: "ZingChart",
+  //   end: true,
+  //   icons: <FaChartPie size={24} />,
+  // },
+  // {
+  //   path: "follow",
+  //   text: "Theo dõi",
+  //   icons: <MdOutlineFeed size={24} />,
+  // },
 ];

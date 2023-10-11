@@ -27,17 +27,17 @@ function App() {
         <Routes>
           <Route path={path.PUBLIC} element={<Public></Public>}>
             <Route path={path.HOME} element={<Home></Home>}></Route>
-            <Route path={path.LOGIN} element={<Login></Login>}></Route>
+            {/* <Route path={path.LOGIN} element={<Login></Login>}></Route> */}
             <Route
               path={path.ALBUM__TITLE__PID}
               element={<Album></Album>}
             ></Route>
 
             <Route path={path.SEARCH} element={<Search></Search>}>
-              <Route
+              {/* <Route
                 path={path.SONG}
                 element={<SearchSong></SearchSong>}
-              ></Route>
+              ></Route> */}
               <Route path={path.ALL} element={<SearchAll></SearchAll>}></Route>
             </Route>
 
