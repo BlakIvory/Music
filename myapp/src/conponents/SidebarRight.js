@@ -4,10 +4,18 @@ import { SongItem } from "./";
 import * as apis from "../apis";
 import { Scrollbars } from "react-custom-scrollbars";
 import { setCurSongData } from "../store/actions";
+import { Link } from "react-router-dom";
+import path from "../ultis/path";
+import { Navigate } from "react-router-dom";
 
 const SidebarRight = () => {
   const [isRecent, setIsRecent] = useState(false);
+
+  const [isLogin, setIsLogin] = useState(false);
+  const [isCheckLogin, setIsCheckLogin] = useState(false);
+  
   const [PlayList, setPlayList] = useState(null);
+
   const { curSongData, curSongId, curAlbumId, isPlaying, recentSongs } =
     useSelector((state) => state.music);
   // console.log(curSongData);
@@ -17,9 +25,18 @@ const SidebarRight = () => {
       setPlayList(res.data.data?.song?.items);
     }
   };
+  
+  useEffect(() => {
+    if(isCheckLogin==true) {
+
+    }
+  }, [isCheckLogin]);
+  
   useEffect(() => {
     curAlbumId && fetchdetailplaylist();
   }, []);
+
+
   useEffect(() => {
     if (curAlbumId && isPlaying) fetchdetailplaylist();
   }, [curAlbumId, isPlaying]);
@@ -28,10 +45,44 @@ const SidebarRight = () => {
     isPlaying && setIsRecent(false) && setCurSongData(curSongData);
   },[isPlaying,curSongId]);
 
+  // const handleCheckLogin = async(res, req) => {
+  //   const name = req.body.name;
+  //   const password = req.body.password;
+  //   const result = await apis.Login(name, password)
 
+  // };
 
   return (
     <div className=" bg-main-200 w-full h-full flex flex-col text-xs  ">
+
+
+    
+
+       <div className="h-[70px]  py-[14px] px-2 flex items-center gap-8 rounded-sm justify-between">
+        <div className="flex flex-auto gap-1 justify-center  bg-main-400 rounded-l-full rounded-r-full py-[6px] px-[6px] cursor-pointer">
+          <span
+            onClick={() => {
+              setIsLogin((prev) => !prev);
+            }}
+            className={`py-[5px] ${
+              !isLogin && "bg-main-500"
+            } flex-1  flex justify-center items-center rounded-l-full rounded-r-full`}
+          >
+           <Link to='/login'> Đăng Nhập</Link>
+          </span>
+          <span
+            onClick={() => setIsLogin((prev) => !prev)}
+            className={`py-[5px] ${
+              isLogin && "bg-main-500"
+            } flex-1  flex justify-center items-center rounded-l-full rounded-r-full`}
+            
+          >
+            <Link to='/Register'> Đăng Kí</Link>
+          </span>
+        </div>
+      </div>
+
+
       <div className="h-[70px]  py-[14px] px-2 flex items-center gap-8 rounded-sm justify-between">
         <div className="flex flex-auto gap-1 justify-center  bg-main-400 rounded-l-full rounded-r-full py-[6px] px-[6px] cursor-pointer">
           <span

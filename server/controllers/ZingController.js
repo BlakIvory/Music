@@ -1,5 +1,6 @@
 const { ZingMp3 } = require("zingmp3-api-full")
-
+const UserService = require("../services/user.service")
+const MongoDB = require("../monggodb")
 class ZingController {
 
   getSong(req, res) {
@@ -84,6 +85,34 @@ class ZingController {
     ZingMp3.getVideo(req.query.id).then((data) => {
       res.json(data)
     })
+  }
+
+  // addfavorites(req, res, next) {
+  //    try {
+  //     let result = req.body
+  //     console.log(req.body)
+  //     return res.send(result)
+  //    } catch (error) {
+  //     return next(error)
+  //    }
+  // }
+
+  
+  login(req, res, next) {
+    try {
+      console.log(req.body)
+    } catch (error) {
+      return next(error)
+    }
+  }
+
+ postRegister = async (req,res)=> {
+    console.log(req.body)
+    const userService = new UserService(MongoDB.client);
+    documents = await userService.check(req.body);
+    // const result = new UserService.register(req.body)
+    // console.log(result)
+    return res.send(documents)
   }
 
 }

@@ -45,4 +45,11 @@ router.get("/categorymv", ZingController.getCategoryMV)
 // getVideo
 router.get("/video", ZingController.getVideo)
 
+// router.post("/addfavorite",ZingController.addfavorites)
+router.post("/login",ZingController.login)
+
+// router.post("/register", ZingController.postRegister )
+
+router.post("/register", ZingController.postRegister )
+
 module.exports = router

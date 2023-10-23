@@ -57,6 +57,35 @@ export const apiSearch = (keyword) => new Promise(async (resolve, reject) => {
     }
 
 }
+
+)
+export const Login = (keyword) => new Promise(async (resolve, reject) => { 
+    try {
+        const response = await axios({
+            url: '/login',
+            method: 'post',
+        
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+
+}
+)
+export const Register = (keyword) => new Promise(async (resolve, reject) => { 
+    try {
+        const response = await axios({
+            url: '/register',
+            method: 'post',
+            params: { name:keyword.name, email :keyword.email,password:keyword.password}
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+
+}
 )
 
 
