@@ -10,7 +10,7 @@ const cors = require("cors");
 
 const config = require("./config");
 
-const MongoDB = require("./monggodb.js");
+const MongoDB = require("./monggoodb.js");
 
 require("dotenv").config();
 const port = process.env.PORT || 8888;

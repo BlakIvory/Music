@@ -211,7 +211,7 @@ const Player = ({ setIsShowRightSidebar }) => {
               }
             }}
           >
-            <CiRepeat size={24} hover />
+            <CiRepeat size={24} className=" hover:text-[#0E8080]" />
           </span>
           <span
             onClick={handleClickPrevMusic}
@@ -237,7 +237,7 @@ const Player = ({ setIsShowRightSidebar }) => {
                 : "cursor-pointer  hover:text-[#0E8080]"
             }`}
           >
-            <TbPlayerTrackNextFilled size={24} />
+            <TbPlayerTrackNextFilled size={24}  className=" hover:text-[#0E8080]"/>
           </span>
           <span
             className={`cursor-pointer ${isRandom && "text-[#0E8080]"}`}
@@ -249,7 +249,7 @@ const Player = ({ setIsShowRightSidebar }) => {
               }
             }}
           >
-            <CiShuffle size={24} />
+            <CiShuffle size={24}  className=" hover:text-[#0E8080]"/>
           </span>
         </div>
         <div className="w-full flex items-center justify-center gap-2 pb-5 ">

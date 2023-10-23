@@ -1,6 +1,7 @@
 const { ZingMp3 } = require("zingmp3-api-full")
 const UserService = require("../services/user.service")
-const MongoDB = require("../monggodb")
+const MongoDB = require("../monggoodb")
+
 class ZingController {
 
   getSong(req, res) {
@@ -98,21 +99,30 @@ class ZingController {
   // }
 
   
-  login(req, res, next) {
+  login = async(req, res) =>{
+      // console.log(req.query)
+
     try {
-      console.log(req.body)
+      // console.log(req.query)
+      const userService = new UserService(MongoDB.client);
+      const result = await userService.check(req.query);
+      // console.log(result)
+      if(result.length==0){return res.send({message :"Không có tài khoản này !" })}
+       return res.send({data : result,message : "Đăng nhập thành công !"})
     } catch (error) {
-      return next(error)
+      return res.send()
     }
   }
 
  postRegister = async (req,res)=> {
-    console.log(req.body)
+    // console.log(req.query)
+    // console.log(MongoDB.client)
     const userService = new UserService(MongoDB.client);
-    documents = await userService.check(req.body);
-    // const result = new UserService.register(req.body)
+    // const documents = await userService.check(req.body);
+    // console.log(documents)
+    const result = await userService.register(req.query)
     // console.log(result)
-    return res.send(documents)
+     return res.send(result)
   }
 
 }

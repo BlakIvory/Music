@@ -1,4 +1,4 @@
-import MongoDB from "../monggodb";
+const MongoDB = require("../monggoodb.js");
 
 class UserService {
   constructor(client) {
@@ -18,20 +18,22 @@ class UserService {
     return user;
   }
   async register(payload) {
-    console.log(payload)
-    const user = await this.extractUserData(payload);
-    // console.log(user);
-    const result = await this.User.findOneAndUpdate(
-      user,
-      { $set: { favorite: {} } },
-      { returnDocument: "after", upsert: true }
-    );
-    return result;
+    // console.log(payload)
+      const user = await this.extractUserData(payload);
+      // console.log(user);
+      const result = await this.User.findOneAndUpdate(
+        user,
+        { $set: { favorite: {}||null } },
+        { returnDocument: "after", upsert: true }
+      );
+      return result;
+   
   }
 
   async check(filter) {
-    // console.log( filter.email);
+    // console.log( filter);
     const cursor = await this.User.find(filter);
+    // console.log( await cursor.toArray() );
     return await cursor.toArray();
   }
 

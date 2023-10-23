@@ -6,7 +6,7 @@ export { default as Album } from './Album'
 
 export { default as Search } from "./Search";
 
-export { default as SearchSong } from "./SearchSong";
+// export { default as SearchSong } from "./SearchSong";
 
 export { default as SearchAll } from "./SearchAll";
 

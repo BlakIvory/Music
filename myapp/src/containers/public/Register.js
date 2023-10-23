@@ -5,6 +5,7 @@ import { useState,useEffect } from 'react';
 import {useNavigate,Link} from 'react-router-dom'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 const Register = () => {
+    const Navigate = useNavigate()
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [ email, setEmail] = useState('')
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -14,11 +15,17 @@ const Register = () => {
       e.preventDefault();
       // console.log(e.target.value)
         try {
-          console.log(name)
-          console.log(email)
-          console.log(password)
-
-         await apis.Register(name, email, password)
+          // console.log(name)
+          // console.log(email)
+          // console.log(password)
+          const user = {name: name, email: email, password: password}
+          const result = await apis.Register(user)
+          if (result){
+            Navigate('/login')
+          }
+          else {
+            alert("Tao tai khoan khong thanh cong")
+          }
           
         } catch (error) {
             console.log(error)
@@ -26,23 +33,24 @@ const Register = () => {
     }
 
     return (
-      <div className="w-[50%] m-5 p-5 justify-center items-center">
+      <div className=" m-5 p-5 justify-center items-center">
+        <div className=' w-[300px] flex items-center justify-center font-bold'>ĐĂNG KÍ</div>
         <form method='POST'  action='/register' className="justify-center items-center">
-        <div className="mb-3">
+        <div className="mb-3 w-[300px]">
             <label for="exampleInputPassword1"  className="form-label ml-3 mb-3">
-              Name
+              Tên tài khoản : 
             </label>
             <input
               type="text"
-              className="form-control"
+              className="form-control "
             
               onChange={(e)=>{setName(e.target.value)}}
-              name="name"
+              name="name "
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-3 w-[300px]">
             <label for="exampleInputEmail1" className="form-label ml-3 mb-3">
-              Email address
+              Địa chỉ Email :
             </label>
             <input
               type="email"
@@ -53,11 +61,11 @@ const Register = () => {
               placeholder="Vui long nhap email..."
               name='email'
             />
-            <div id="emailHelp" className="form-text">
+            {/* <div id="emailHelp" className="form-text">
               We'll never share your email with anyone else.
-            </div>
+            </div> */}
           </div>
-          <div className="mb-3">
+          <div className="mb-3 w-[300px]">
             <label for="exampleInputPassword1"  className="ml-3 mb-3 form-label">
               Password
             </label>
@@ -70,14 +78,14 @@ const Register = () => {
             />
           </div>
         
-        
-          <button  className="btn btn-primary" onClick={submit}>
-            Submit
-          </button>
+        <div className='mb-3 w-[300px] flex items-center justify-center font-bold'> <button  className="btn btn-primary " onClick={submit}>
+          Đăng Kí
+          </button></div>
+          
         </form>
         <div className="mb-3">
         <br />
-        <p>OR <Link to="/login"> login page</Link></p>
+        <p>Bạn đã có tài khoản ?  <Link to="/login"> Đăng Nhập</Link></p>
         
           </div>
         

@@ -12,7 +12,7 @@ const SidebarRight = () => {
   const [isRecent, setIsRecent] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
-  const [isCheckLogin, setIsCheckLogin] = useState(false);
+
   
   const [PlayList, setPlayList] = useState(null);
 
@@ -25,12 +25,14 @@ const SidebarRight = () => {
       setPlayList(res.data.data?.song?.items);
     }
   };
-  
+  const auth = localStorage.getItem('user');
+  // console.log(auth) 
   useEffect(() => {
-    if(isCheckLogin==true) {
-
-    }
-  }, [isCheckLogin]);
+      if(auth.length!==0){
+        setIsLogin((prev) =>!prev)
+        console.log(isLogin )
+      }
+  }, []);
   
   useEffect(() => {
     curAlbumId && fetchdetailplaylist();
@@ -53,34 +55,30 @@ const SidebarRight = () => {
   // };
 
   return (
-    <div className=" bg-main-200 w-full h-full flex flex-col text-xs  ">
-
-
-    
-
-       <div className="h-[70px]  py-[14px] px-2 flex items-center gap-8 rounded-sm justify-between">
-        <div className="flex flex-auto gap-1 justify-center  bg-main-400 rounded-l-full rounded-r-full py-[6px] px-[6px] cursor-pointer">
+    <div className =" bg-main-200 w-full h-full flex flex-col text-xs  ">
+      {isLogin ? ( <div className="h-[70px]  py-[14px] px-2 flex items-center gap-8 rounded-sm justify-between">
+        <div className="flex flex-auto gap-1 justify-center  bg-main-400 rounded-l-full rounded-r-full py-[6px] px-[6px] ">
           <span
-            onClick={() => {
-              setIsLogin((prev) => !prev);
-            }}
+            
             className={`py-[5px] ${
               !isLogin && "bg-main-500"
-            } flex-1  flex justify-center items-center rounded-l-full rounded-r-full`}
+            } flex-1  flex justify-center items-center rounded-l-full rounded-r-full `}
           >
-           <Link to='/login'> Đăng Nhập</Link>
+           <Link to='/login' onClick={() => {
+              setIsLogin((prev) => !prev);
+            }}> Đăng Nhập</Link>
           </span>
           <span
-            onClick={() => setIsLogin((prev) => !prev)}
+            
             className={`py-[5px] ${
               isLogin && "bg-main-500"
             } flex-1  flex justify-center items-center rounded-l-full rounded-r-full`}
             
           >
-            <Link to='/Register'> Đăng Kí</Link>
+            <Link to='/Register' onClick={() => setIsLogin((prev) => !prev)}> Đăng Kí</Link>
           </span>
         </div>
-      </div>
+      </div>):("")}
 
 
       <div className="h-[70px]  py-[14px] px-2 flex items-center gap-8 rounded-sm justify-between">

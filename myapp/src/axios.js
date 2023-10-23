@@ -1,5 +1,5 @@
 import axios from "axios"
-console.log(process.env.REACT_APP_SERVER_URL)
+// console.log(process.env.REACT_APP_SERVER_URL)
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const instance = axios.create({
     baseURL : process.env.REACT_APP_SERVER_URL

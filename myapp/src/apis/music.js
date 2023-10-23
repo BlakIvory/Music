@@ -59,12 +59,13 @@ export const apiSearch = (keyword) => new Promise(async (resolve, reject) => {
 }
 
 )
-export const Login = (keyword) => new Promise(async (resolve, reject) => { 
+export const Login = (user) => new Promise(async (resolve, reject) => { 
     try {
+        // console.log(user)
         const response = await axios({
             url: '/login',
             method: 'post',
-        
+            params:user,
         })
         resolve(response)
     } catch (error) {
@@ -73,13 +74,17 @@ export const Login = (keyword) => new Promise(async (resolve, reject) => {
 
 }
 )
-export const Register = (keyword) => new Promise(async (resolve, reject) => { 
+export const Register = (user) => new Promise(async (resolve, reject) => { 
     try {
+        // console.log(name +email +password)
+       
+        // console.log(user)
         const response = await axios({
             url: '/register',
             method: 'post',
-            params: { name:keyword.name, email :keyword.email,password:keyword.password}
+            params: user
         })
+
         resolve(response)
     } catch (error) {
         reject(error)

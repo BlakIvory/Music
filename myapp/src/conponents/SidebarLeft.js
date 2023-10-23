@@ -14,7 +14,7 @@ const SidebarLeft = () => {
   return (
     <div className='flex h-full flex-col bg-main-200 w-[200px]'>
       <div onClick={()=>Navigatate(path.HOME)} className='w-full cursor-pointer h-[70px] py-[15px] px-[25px] flex justify-start items-center'>
-        <img src={Logo} className='w-[120px] h-10' alt="logo"/>
+        <img src={Logo} className='w-[200px] h-[100px]' alt="logo"/>
       </div>
       <div className='flex flex-col'>
         {SideMenu.map(item=> (
