@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import SongItem from "../../conponents/SongItem"
+import SongItem from "../../conponents/SongItem";
 const SearchAll = () => {
   const { searchData } = useSelector((state) => state.music);
   console.log(searchData);
@@ -20,6 +20,7 @@ const SearchAll = () => {
                 <img
                   src={item?.thumbnail}
                   className="w-[84px] w-[84px] object-cover rounded-full"
+                  alt="img thumbail"
                 ></img>
                 <div className=" pl-5 flex flex-col justify-center">
                   <span>Nghệ sĩ</span>

@@ -1,7 +1,7 @@
 import React, { useState,  } from "react";
 import {useNavigate,  Link } from "react-router-dom";
 import * as apis from "../../apis";
-import Swal from 'sweetalert';
+// import Swal from 'sweetalert';
 
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 const Login = () => {
@@ -19,7 +19,9 @@ const Login = () => {
       console.log(response.data);
       localStorage.setItem("user", JSON.stringify(response.data.data) )
       alert(response.data.message)
+     
       navigate('/home')
+      window.location.reload();
       // if(response.data.length!==0){
       //   // Swal.fire({
       //   //   title: 'Chúc Mừng',

@@ -188,19 +188,19 @@ const Player = ({ setIsShowRightSidebar }) => {
         </div>
         <div className="flex gap-6 pl-2">
           <span>
-            <AiFillHeart size={16} />
+            <AiFillHeart size={16} style={{ color: 'red' }}  />
           </span>
           <span>
-            <AiOutlineHeart size={16} />
+            <AiOutlineHeart size={16}  style={{ color: 'red' }} />
           </span>
-          <span>
+          {/* <span>
             <BiDotsHorizontalRounded size={16} />
-          </span>
+          </span> */}
         </div>
       </div>
 
-      <div className="w-[40%] flex-auto flex flex-col gap-1 justify-center items-center">
-        <div className="flex gap-8 justify-center items-center py-2">
+      <div className="w-[40%] flex-auto flex flex-col gap-1 justify-center items-center pt-[10px] mt-4">
+        <div className="flex gap-8 justify-center items-center ">
           <span
             className={`cursor-pointer ${isRepeat && "text-[#0E8080]"}`}
             title="Lặp lại"

@@ -8,6 +8,7 @@ import {CiRepeat,CiShuffle} from  'react-icons/ci'
 import {BsMusicNoteBeamed ,BsMusicNoteList} from 'react-icons/bs'
 import {BiSolidVolumeFull} from 'react-icons/bi'
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
+import {FiLogOut} from "react-icons/fi"
 
 const icons = {
   MdOutlineLibraryMusic,
@@ -32,6 +33,7 @@ const icons = {
   BsMusicNoteBeamed,
   HiVolumeOff,
   HiVolumeUp,
+  FiLogOut,
 };
 
 export default icons

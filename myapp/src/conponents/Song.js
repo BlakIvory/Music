@@ -55,7 +55,7 @@ const Song = ({ SongData }) => {
           ? `${SongData?.album?.title?.slice(0, 20)}...`
           : SongData?.album?.title}
       </div>
-      <div className=" flex-1 flex justify-end">
+      <div className=" flex-1 flex justify-end ">
         {moment.utc(SongData?.duration * 1000).format("mm:ss")}
       </div>
     </div>
