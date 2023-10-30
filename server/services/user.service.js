@@ -10,7 +10,7 @@ class UserService {
       name: payload.name,
       email: payload.email,
       password: payload.password,
-      favorite: {},
+      favorite: [],
     };
     Object.keys(user).forEach(
       (key) => user[key] === undefined && delete user[key]
@@ -23,7 +23,7 @@ class UserService {
       // console.log(user);
       const result = await this.User.findOneAndUpdate(
         user,
-        { $set: { favorite: {}||null } },
+        { $set: { favorite: [] ||null } },
         { returnDocument: "after", upsert: true }
       );
       return result;
@@ -47,6 +47,20 @@ class UserService {
     return await this.User.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
+  }
+  async favorite(data){
+    // console.log(data.user);
+    const users = await this.User.find({email : data.user.email});
+    const user =await users.toArray();
+    // console.log(user[0]); 
+    const song = data.song;
+    console.log(song)
+    const result = await this.User.findOneAndUpdate(
+      user[0],
+      { $push: { favorite: song } },
+      { returnDocument: "after", }
+    );
+    return result;
   }
 }
 

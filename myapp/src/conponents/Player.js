@@ -27,7 +27,9 @@ var intervalId;
 const Player = ({ setIsShowRightSidebar }) => {
   const [audio, setAudio] = useState(new Audio());
 
-  const { curSongId, isPlaying, songs,curSongData } = useSelector((state) => state.music);
+  const { curSongId, isPlaying, songs, curSongData } = useSelector(
+    (state) => state.music
+  );
 
   const [songInfo, setSongInfo] = useState(null);
 
@@ -37,7 +39,9 @@ const Player = ({ setIsShowRightSidebar }) => {
   const thumRef = useRef();
   const trackRef = useRef();
   const dispatch = useDispatch();
-  var [volume,setVolume]=useState(70)
+  var [volume, setVolume] = useState(70);
+
+  const [isFavorite, SetIsFavorite] = useState(false);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
@@ -72,6 +76,7 @@ const Player = ({ setIsShowRightSidebar }) => {
     intervalId && clearInterval(intervalId);
     audio.pause();
     audio.load();
+    SetIsFavorite(false);
     if (isPlaying) {
       audio.play().catch(() => {});
       intervalId = setInterval(() => {
@@ -105,10 +110,9 @@ const Player = ({ setIsShowRightSidebar }) => {
     };
   }, [audio, isRepeat, isRandom]);
 
-  useEffect(() => { 
-    audio.volume = volume /100
-  },[volume])
-
+  useEffect(() => {
+    audio.volume = volume / 100;
+  }, [volume]);
 
   const handleClickProressBar = (e) => {
     // console.log(e)
@@ -121,7 +125,6 @@ const Player = ({ setIsShowRightSidebar }) => {
     audio.currentTime = (percent * songInfo.duration) / 100;
     setCurrentSecond(Math.round((percent * songInfo.duration) / 100));
   };
-
   const handlTogglePlay = () => {
     if (isPlaying) {
       console.log("pausing");
@@ -170,6 +173,28 @@ const Player = ({ setIsShowRightSidebar }) => {
     dispatch(actions.play(true));
   };
 
+  const handleClickAddFavorite = () => {
+    const auth = JSON.parse(localStorage.getItem('user'));
+    const user = auth[0]
+    const SongFavorite = {
+      encodeId:songInfo.encodeId,
+      title: songInfo.title,
+      artistsNames: songInfo.artistsNames,
+      duration: songInfo.duration,
+      thumbnailM : songInfo.thumbnailM,
+      album: songInfo.album,
+    }
+    const data = {
+      user: user,
+      song: SongFavorite
+    }
+    const result =  apis.addFavorite(data)
+    // console.log(data)
+   
+    SetIsFavorite(true)
+  }
+
+
   return (
     <div className="bg-main-400 px-4 h-full flex m-1 pt-[5px]">
       <div className="w-[30%]   flex items-center flex-auto  gap-4">
@@ -187,12 +212,26 @@ const Player = ({ setIsShowRightSidebar }) => {
           <span className="text-xs">{songInfo?.artistsNames} </span>
         </div>
         <div className="flex gap-6 pl-2">
-          <span>
-            <AiFillHeart size={16} style={{ color: 'red' }}  />
-          </span>
-          <span>
-            <AiOutlineHeart size={16}  style={{ color: 'red' }} />
-          </span>
+          {isFavorite ? (
+            <span>
+              <AiFillHeart
+                size={16}
+                style={{ color: "red" }}
+                onClick={() => {
+                  SetIsFavorite((prev) => !prev);
+                }}
+              />
+            </span>
+          ) : (
+            <span>
+              <AiOutlineHeart
+                size={16}
+                style={{ color: "red" }}
+                onClick={handleClickAddFavorite}
+              />
+            </span>
+          )}
+
           {/* <span>
             <BiDotsHorizontalRounded size={16} />
           </span> */}
@@ -237,7 +276,10 @@ const Player = ({ setIsShowRightSidebar }) => {
                 : "cursor-pointer  hover:text-[#0E8080]"
             }`}
           >
-            <TbPlayerTrackNextFilled size={24}  className=" hover:text-[#0E8080]"/>
+            <TbPlayerTrackNextFilled
+              size={24}
+              className=" hover:text-[#0E8080]"
+            />
           </span>
           <span
             className={`cursor-pointer ${isRandom && "text-[#0E8080]"}`}
@@ -249,7 +291,7 @@ const Player = ({ setIsShowRightSidebar }) => {
               }
             }}
           >
-            <CiShuffle size={24}  className=" hover:text-[#0E8080]"/>
+            <CiShuffle size={24} className=" hover:text-[#0E8080]" />
           </span>
         </div>
         <div className="w-full flex items-center justify-center gap-2 pb-5 ">

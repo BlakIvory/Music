@@ -5,7 +5,6 @@ import {
   Public,
   Album,
   Search,
-  SearchSong,
   SearchAll,
   Register,
 } from "./containers/public/";
@@ -15,6 +14,7 @@ import path from "./ultis/path";
 import { useEffect } from "react";
 import * as actions from "./store/actions";
 import { ToastContainer } from "react-toastify";
+import Myself from "./containers/public/Myself";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ function App() {
         <Routes>
           <Route path={path.PUBLIC} element={<Public></Public>}>
             <Route path={path.HOME} element={<Home></Home>}></Route>
+            <Route path={path.MYSELF} element={<Myself></Myself>}></Route>
             <Route path={path.LOGIN} element={<Login></Login>}></Route>
             <Route path={path.REGISTER} element={<Register></Register>}></Route>
             <Route
@@ -36,10 +37,6 @@ function App() {
             ></Route>
 
             <Route path={path.SEARCH} element={<Search></Search>}>
-              {/* <Route
-                path={path.SONG}
-                element={<SearchSong></SearchSong>}
-              ></Route> */}
               <Route path={path.ALL} element={<SearchAll></SearchAll>}></Route>
             </Route>
             <Route path={path.STAR} element={<Home></Home>}></Route>

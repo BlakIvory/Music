@@ -3,7 +3,6 @@ import actionTypes from "../actions/ActionTypes";
 const initState = { 
     banner :[],
     hot: {},
-    
     top100: {},
 }
 

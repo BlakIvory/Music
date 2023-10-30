@@ -7,12 +7,12 @@ const { MdOutlineLibraryMusic,
 
 export const SideMenu = [
   {
-    path: "home",
+    path: "myself",
     text: "Cá Nhân",
     icons: <MdOutlineLibraryMusic size={24} />,
   },
   {
-    path: "Kham Pha",
+    path: "home",
     text: "Khám phá",
 
     icons: <TbChartArcs3 size={24} />,

@@ -9,7 +9,6 @@ import * as actions from "../store/actions";
 const Song = ({ SongData }) => {
   const dispatch = useDispatch();
   
-
   return (
     <div
       className="flex justify-between w-full items-center p-[10px] border-t border-gray-400  hover:bg-gray-200 cursor-pointer"
@@ -46,6 +45,7 @@ const Song = ({ SongData }) => {
             {SongData?.title.lenght > 20
               ? `${SongData?.title?.slice(0, 20)}...`
               : SongData?.title}
+              {/* {SongData.title} */}
           </span>
           <span className=" ">{SongData?.artistsNames}</span>
         </span>

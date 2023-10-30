@@ -4,8 +4,9 @@ import { Song } from "./";
 import { UseSelector, useSelector } from "react-redux";
 
 const Lists = ({ totalDuration }) => {
-  // console.log({ songs, totalDuration });
   const { songs } = useSelector(state => state.music)
+  console.log({ songs, totalDuration });
+
   // console.log(songs)
   return (
     <div className=" w-full flex flex-col text-xs text-gray-600">
@@ -14,7 +15,7 @@ const Lists = ({ totalDuration }) => {
         <span className="ml-[150px]">ALBUM</span>
         <span className="">THỜI LƯỢNG </span>
       </div>
-      <div className="flex flex-col hover={value.toString()} ">
+      <div className="flex flex-col  ">
         {songs?.map((item) => (
           <Song key={item.encodeId} SongData={item} />
         ))}

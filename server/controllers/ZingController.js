@@ -125,6 +125,14 @@ class ZingController {
      return res.send(result)
   }
 
+  addFavorite = async (req,res)=> {
+    // console.log(req.body)
+    // console.log(req.query)
+    // console.log(MongoDB.client)
+    const userService = new UserService(MongoDB.client);
+    const result = await userService.favorite(req.query);
+    return res.send(result)
+  }
 }
 
 module.exports = new ZingController

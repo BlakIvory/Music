@@ -69,6 +69,7 @@ const Login = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            placeholder="Vui long nhap password..."
           />
         </div>
         <button type="submit" className="btn btn-primary" onClick={submit}>

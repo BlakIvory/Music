@@ -90,8 +90,46 @@ export const Register = (user) => new Promise(async (resolve, reject) => {
         reject(error)
     }
 
+})
+
+export const addFavorite = (data) => new Promise(async (resolve, reject) => { 
+    try {
+        console.log(data)
+       
+        console.log(data)
+        const response = await axios({
+            url: '/addFavorite',
+            method: 'get',
+            params: data,
+        })
+
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+
 }
 )
+
+// export const apiGetFavorite = (data) => new Promise(async (resolve, reject) => { 
+//     try {
+//         // console.log(name +email +password)
+       
+//         console.log(data)
+//         // const response = await axios({
+//         //     url: '/getFavorite',
+//         //     method: 'get',
+//         //     params: data,
+//         // })
+
+//         // resolve(response)
+//     } catch (error) {
+//         reject(error)
+//     }
+
+// }
+// )
+
 
 
 

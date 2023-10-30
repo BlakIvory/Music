@@ -52,4 +52,6 @@ router.post("/login",ZingController.login)
 
 router.post("/register", ZingController.postRegister )
 
+router.get("/addFavorite", ZingController.addFavorite)
+
 module.exports = router

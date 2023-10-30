@@ -43,7 +43,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control "
-            
+            placeholder='Vui lòng nhập tên tài khoản...'
               onChange={(e)=>{setName(e.target.value)}}
               name="name "
             />
@@ -75,6 +75,7 @@ const Register = () => {
               id="exampleInputPassword1"
               onChange={(e)=>{setPassword(e.target.value)}}
               name='password'
+              placeholder='Vui long nhap password...'
             />
           </div>
         

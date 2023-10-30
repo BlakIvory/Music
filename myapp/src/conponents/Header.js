@@ -2,11 +2,14 @@ import React from "react";
 import icons from "../ultis/icons";
 import { Search } from "./";
 import { useEffect,useState } from "react";
+// import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const { AiOutlineArrowLeft, AiOutlineArrowRight, CgProfile, FiLogOut } = icons;
 
 
 
 const Header = () => {
+  const navigate  = useNavigate()
   const [isLogin , setIsLogin] = useState(false)
   useEffect(() => {
   const auth = localStorage.getItem("user");
@@ -30,7 +33,8 @@ const Header = () => {
         <CgProfile className="m-2 p-2" size={36} />
         {isLogin ? (<FiLogOut className="m-2 p-2" onClick={()=>{
           localStorage.removeItem('user')
-          window.location.reload();
+          navigate('/login')
+          // window.location.reload();
         }} size={36} />):("")}
       </div>
     </div>
