@@ -1,14 +1,11 @@
 import React from "react";
 import * as apis from "../../apis";
-// import {myself} from '../../assets/OIP.jpg'
+
 import Song from "../../conponents/Song";
 
-const Myself = () => {
+const Myself =  () => {
   const auth = JSON.parse(localStorage.getItem("user"));
-  // console.log(auth[0])
-  const user = auth[0];
-  const fetchFavorite = user.favorite;
-  console.log(fetchFavorite);
+  const user = auth[0] ;
 
   return (
     <div className="container flex col w-full">
@@ -28,9 +25,9 @@ const Myself = () => {
         <p>
           Email : <span> {user.email}</span>
         </p>
-        <p>
-          Lượt yêu thích bài hát : <span> {user.favorite.length}</span>
-        </p>
+        {/* <p>
+          Bài hát yêu thích : <span> {user.favorite?.length}</span>
+        </p> */}
       </div>
       <div className="m-3">
         <span className="flex items-center justify-center font-semibold">DANH SÁCH BÀI HÁT YÊU THÍCH</span>
@@ -41,9 +38,12 @@ const Myself = () => {
             <span className="">THỜI LƯỢNG </span>
           </div>
           <div className="flex flex-col w-[700px]">
-            {fetchFavorite?.map((item) => (
-              <Song key={item.encodeId} SongData={item} />
-            ))}
+            {/* {fetchFavorite?.map((item, index) => (
+              <Song key={index} SongData={item} />
+            ))} */}
+          </div>
+          <div className="w-full h-[200px]">
+
           </div>
         </div>
       </div>

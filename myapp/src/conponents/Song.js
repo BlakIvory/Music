@@ -42,7 +42,7 @@ const Song = ({ SongData }) => {
         ></img>
         <span className=" flex flex-col w-[250px]">
           <span className="text-sm font-semibold ">
-            {SongData?.title.lenght > 20
+            {SongData?.title?.lenght > 20
               ? `${SongData?.title?.slice(0, 20)}...`
               : SongData?.title}
               {/* {SongData.title} */}
@@ -51,7 +51,7 @@ const Song = ({ SongData }) => {
         </span>
       </div>
       <div className="pl-10 flex-1 flex-start justify-center items-center">
-        {SongData?.album?.title.lenght > 20
+        {SongData?.album?.title?.lenght > 20
           ? `${SongData?.album?.title?.slice(0, 20)}...`
           : SongData?.album?.title}
       </div>

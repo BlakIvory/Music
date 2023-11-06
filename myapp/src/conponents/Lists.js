@@ -5,7 +5,7 @@ import { UseSelector, useSelector } from "react-redux";
 
 const Lists = ({ totalDuration }) => {
   const { songs } = useSelector(state => state.music)
-  console.log({ songs, totalDuration });
+  // console.log({ songs, totalDuration });
 
   // console.log(songs)
   return (
