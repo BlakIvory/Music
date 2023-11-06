@@ -24,7 +24,8 @@ const Register = () => {
             Navigate('/login')
           }
           else {
-            alert("Tao tai khoan khong thanh cong")
+            alert("Tạo tài khoản không thành công")
+            window.location.reload()
           }
           
         } catch (error) {

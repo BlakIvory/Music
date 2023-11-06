@@ -31,9 +31,11 @@ const Header = () => {
       </div>
       <div className="flex ">
         <CgProfile className="m-2 p-2" size={36} />
-        {isLogin ? (<FiLogOut className="m-2 p-2" onClick={()=>{
+        {isLogin ? (<FiLogOut className="m-2 p-2" onClick={() => {
+          navigate("/login");
           localStorage.removeItem('user')
-          navigate('/login')
+          window.location.reload();
+          
           // window.location.reload();
         }} size={36} />):("")}
       </div>

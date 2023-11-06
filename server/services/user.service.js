@@ -19,15 +19,14 @@ class UserService {
   }
   async register(payload) {
     // console.log(payload)
-      const user = await this.extractUserData(payload);
-      // console.log(user);
-      const result = await this.User.findOneAndUpdate(
-        user,
-        { $set: { favorite: [] ||null } },
-        { returnDocument: "after", upsert: true }
-      );
-      return result;
-   
+    const user = await this.extractUserData(payload);
+    // console.log(user);
+    const result = await this.User.findOneAndUpdate(
+      user,
+      { $set: { favorite: [] || null } },
+      { returnDocument: "after", upsert: true }
+    );
+    return result;
   }
 
   async check(filter) {
@@ -48,19 +47,32 @@ class UserService {
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
   }
-  async favorite(data){
+  async favorite(data) {
     // console.log(data.user);
-    const users = await this.User.find({email : data.user.email});
-    const user =await users.toArray();
-    // console.log(user[0]); 
+    const users = await this.User.find({ email: data.user });
+    const user = await users.toArray();
+    // console.log(user[0]);
     const song = data.song;
-    console.log(song)
+    // console.log(song)
     const result = await this.User.findOneAndUpdate(
       user[0],
       { $push: { favorite: song } },
-      { returnDocument: "after", }
+      { returnDocument: "after" }
     );
     return result;
+  }
+  async getAllfavorite(data) {
+    console.log(data);
+    const users = await this.User.find({ email: data.email });
+    const user = await users.toArray();
+    // console.log(user[0].favorite)
+    // const result = await this.User.findOneAndUpdate(
+    //   user[0],
+    //   { $push: { favorite: song } },
+    //   { returnDocument: "after" }
+    // );
+    const result = user[0].favorite;
+    return result ;
   }
 }
 

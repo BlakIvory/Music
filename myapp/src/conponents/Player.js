@@ -175,7 +175,7 @@ const Player = ({ setIsShowRightSidebar }) => {
 
   const handleClickAddFavorite = () => {
     const auth = JSON.parse(localStorage.getItem('user'));
-    const user = auth[0]
+    const user = auth[0].email
     const SongFavorite = {
       encodeId:songInfo.encodeId,
       title: songInfo.title,
@@ -188,8 +188,9 @@ const Player = ({ setIsShowRightSidebar }) => {
       user: user,
       song: SongFavorite
     }
+    console.log(data)
     const result =  apis.addFavorite(data)
-    // console.log(data)
+    // // console.log(data)
    
     SetIsFavorite(true)
   }

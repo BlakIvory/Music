@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  
   async function submit(e) {
     e.preventDefault();
     try {
@@ -19,20 +20,8 @@ const Login = () => {
       console.log(response.data);
       localStorage.setItem("user", JSON.stringify(response.data.data) )
       alert(response.data.message)
-     
       navigate('/home')
       window.location.reload();
-      // if(response.data.length!==0){
-      //   // Swal.fire({
-      //   //   title: 'Chúc Mừng',
-      //   //   text: 'Bạn đã đăng nhập thành công',
-      //   //   icon: 'success',
-      //   //   confirmButtonText: 'OK'
-      //   // });
-      // }
-   
-
-  
     } catch (e) {
       console.log(e);
     }

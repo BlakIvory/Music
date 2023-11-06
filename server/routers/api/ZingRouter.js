@@ -54,4 +54,8 @@ router.post("/register", ZingController.postRegister )
 
 router.get("/addFavorite", ZingController.addFavorite)
 
+router.get("/getAllFavorite", ZingController.getAllFavorite);
+
+
+
 module.exports = router
