@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios';
+
 import * as apis from '../../apis/index';
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 import {useNavigate,Link} from 'react-router-dom'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 const Register = () => {

@@ -133,7 +133,7 @@ class ZingController {
   };
 
   getAllFavorite = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     // console.log(req.query)
     // console.log(MongoDB.client)
     const userService = new UserService(MongoDB.client);

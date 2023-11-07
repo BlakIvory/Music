@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import icons from "../ultis/icons";
+
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import * as actions from "../store/actions";

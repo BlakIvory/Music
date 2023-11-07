@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import moment from "moment";
+
 import "moment/locale/vi";
 import { useDispatch } from "react-redux";
 import * as actions from "../store/actions/index";

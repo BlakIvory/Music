@@ -5,9 +5,7 @@ const SearchAll = () => {
   const { searchData } = useSelector((state) => state.music);
   console.log(searchData);
 
-  // const [isAll, setisAll] = useState(true)
-  // const [ isSong,setisSong]= useState(true)
-  // const [ isArtist,setisArtist]= useState(true)
+
 
   return (
     <div className="flex row">

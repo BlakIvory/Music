@@ -77,6 +77,7 @@ const Player = ({ setIsShowRightSidebar }) => {
     audio.pause();
     audio.load();
     SetIsFavorite(false);
+    setVolume(70)
     if (isPlaying) {
       audio.play().catch(() => {});
       intervalId = setInterval(() => {

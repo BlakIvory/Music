@@ -10,7 +10,7 @@ const Album = () => {
   const { pl_id } = useParams();
   // console.log(pl_id);
   const dispatch = useDispatch()
-  const { curSongId, isPlaying, songs } = useSelector((state) => state.music);
+  const {  isPlaying } = useSelector((state) => state.music);
   const [playlistData, setPlaylistData] = useState({});
 
   useEffect(() => {

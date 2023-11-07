@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment"
 import { Song } from "./";
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Lists = ({ totalDuration }) => {
   const { songs } = useSelector(state => state.music)

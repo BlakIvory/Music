@@ -62,7 +62,7 @@ class UserService {
     return result;
   }
   async getAllfavorite(data) {
-    console.log(data);
+    // console.log(data);
     const users = await this.User.find({ email: data.email });
     const user = await users.toArray();
     // console.log(user[0].favorite)

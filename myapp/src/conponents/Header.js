@@ -4,7 +4,7 @@ import { Search } from "./";
 import { useEffect,useState } from "react";
 // import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const { AiOutlineArrowLeft, AiOutlineArrowRight, CgProfile, FiLogOut } = icons;
+const {  CgProfile, FiLogOut } = icons;
 
 
 
