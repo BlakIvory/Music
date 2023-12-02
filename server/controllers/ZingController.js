@@ -141,6 +141,17 @@ class ZingController {
      const result = await userService.getAllfavorite(req.query);
     return res.send(result);
   };
+
+
+  addPlaylist = async (req, res) => { 
+     const userService = new UserService(MongoDB.client);
+     // const result = await userService.getAllfavorite(req.body);
+     const result = await userService.addPlaylist(req.body);
+    return res.send(result);
+  }
+
+
+
 }
 
 module.exports = new ZingController

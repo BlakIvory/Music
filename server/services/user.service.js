@@ -11,6 +11,7 @@ class UserService {
       email: payload.email,
       password: payload.password,
       favorite: [],
+      Playlist : [],
     };
     Object.keys(user).forEach(
       (key) => user[key] === undefined && delete user[key]
@@ -23,7 +24,7 @@ class UserService {
     // console.log(user);
     const result = await this.User.findOneAndUpdate(
       user,
-      { $set: { favorite: [] || null } },
+      { $set: { favorite: [] || null, Playlist: [] || null } },
       { returnDocument: "after", upsert: true }
     );
     return result;
@@ -74,6 +75,22 @@ class UserService {
     const result = user[0].favorite;
     return result ;
   }
+  async addPlaylist(data) {
+    console.log(data.email)
+    const playlist = {
+      "namePlaylist": data.namePlaylist,
+      "listSongs": [],
+    };
+    const result = await this.User.findOneAndUpdate(
+      {email: data.email},
+      {
+        $push: {Playlist: playlist },
+      },
+      { returnDocument: "after" }
+    );
+    return result ;
+   }
+
 }
 
 module.exports = UserService;

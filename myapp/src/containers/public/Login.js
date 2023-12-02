@@ -3,6 +3,8 @@ import {useNavigate,  Link } from "react-router-dom";
 import * as apis from "../../apis";
 // import Swal from 'sweetalert';
 
+import Swal from "sweetalert2";
+
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,9 +21,18 @@ const Login = () => {
       const response = await apis.Login(user)
       console.log(response.data);
       localStorage.setItem("user", JSON.stringify(response.data.data) )
-      alert(response.data.message)
-      navigate('/home')
-      window.location.reload();
+      
+      Swal.fire({
+        title: "Thông Báo",
+        text: response.data.message,
+        icon: "success",  
+        confirmButtonText: "OK",
+        showConfirmButton: true,
+      }).then(() => {
+        navigate("/home");
+        window.location.reload();
+       });
+      
     } catch (e) {
       console.log(e);
     }

@@ -20,19 +20,10 @@ const SidebarLeft = () => {
       <div onClick={()=>Navigatate(path.HOME)} className='w-full cursor-pointer h-[70px] py-[15px] px-[25px] flex justify-start items-center'>
         <img src={Logo} className='w-[200px] h-[100px]' alt="logo"/>
       </div>
-      {/* <NavLink onClick={handleCheck}
-        to={'/myself'}
-        key={'/myself'}
-        className={({ isActive}) => isActive ? Active: notActive}
-       
-        > 
-        <MdOutlineLibraryMusic size={24} />
-          Cá Nhân
-        </NavLink> */}
+     
       <div className='flex flex-col'>
         {SideMenu.map(item=> (
           <NavLink 
-
           to={item.path}
           key={item.path}
           end={item.end}

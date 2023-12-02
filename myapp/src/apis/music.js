@@ -121,3 +121,19 @@ export const apiGetAllFavorite = (data) =>
       reject(error);
     }
   });
+
+  // export const apiGetAllPlaylist = (data) =>
+  //   new Promise(async (resolve, reject) => {
+  //     try {
+  //       //   console.log(data);
+  //       const response = await axios({
+  //         url: "/getAllPlaylists",
+  //         method: "get",
+  //         params: data,
+  //       });
+  //       // console.log(response)
+  //       resolve(response);
+  //     } catch (error) {
+  //       reject(error);
+  //     }
+  //   });
