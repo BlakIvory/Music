@@ -122,18 +122,49 @@ export const apiGetAllFavorite = (data) =>
     }
   });
 
-  // export const apiGetAllPlaylist = (data) =>
-  //   new Promise(async (resolve, reject) => {
-  //     try {
-  //       //   console.log(data);
-  //       const response = await axios({
-  //         url: "/getAllPlaylists",
-  //         method: "get",
-  //         params: data,
-  //       });
-  //       // console.log(response)
-  //       resolve(response);
-  //     } catch (error) {
-  //       reject(error);
-  //     }
-  //   });
+  export const apiGetAllPlaylist = (data) =>
+    new Promise(async (resolve, reject) => {
+      try {
+          // console.log(data);
+        const response = await axios({
+          url: "/getPlaylist",
+          method: "get",
+          params: data,
+        });
+        // console.log(response)
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+  export const addPlaylist = (data) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        //   console.log(data);
+        const response = await axios({
+          url: "/addPlaylist",
+          method: "post",
+          params: data,
+        });
+        // console.log(response)
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    });
+      export const addSongToPlaylist = (data) =>
+        new Promise(async (resolve, reject) => {
+          try {
+            //   console.log(data);
+            const response = await axios({
+              url: "/addSongToPlaylist",
+              method: "post",
+              params: data,
+            });
+            // console.log(response)
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        });

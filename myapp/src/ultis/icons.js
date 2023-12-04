@@ -9,7 +9,7 @@ import {BsMusicNoteBeamed ,BsMusicNoteList} from 'react-icons/bs'
 import {BiSolidVolumeFull} from 'react-icons/bi'
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import {FiLogOut} from "react-icons/fi"
-
+import { LuListEnd } from "react-icons/lu";
 const icons = {
   MdOutlineLibraryMusic,
   FaChartPie,
@@ -34,6 +34,7 @@ const icons = {
   HiVolumeOff,
   HiVolumeUp,
   FiLogOut,
+  LuListEnd,
 };
 
 export default icons

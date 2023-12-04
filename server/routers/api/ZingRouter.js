@@ -58,5 +58,8 @@ router.get("/getAllFavorite", ZingController.getAllFavorite);
 
 router.post("/addPlaylist", ZingController.addPlaylist);
 
+router.get("/getPlaylist", ZingController.getPlaylist);
+
+router.post("/addSongToPlaylist", ZingController.addSongToPlaylist);
 
 module.exports = router

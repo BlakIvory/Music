@@ -14,6 +14,7 @@ const Lists = ({ totalDuration }) => {
         <span className="">BÀI HÁT</span>
         <span className="ml-[150px]">ALBUM</span>
         <span className="">THỜI LƯỢNG </span>
+        <span className="">XỬ LÍ </span>
       </div>
       <div className="flex flex-col  ">
         {songs?.map((item) => (
@@ -22,7 +23,10 @@ const Lists = ({ totalDuration }) => {
       </div>
       <span className="ml-[20px] text-lg ">
         <span>{`${songs?.length} bài hát .`} </span>
-        <span>Tổng Thời Lượng : {moment.utc(totalDuration*1000).format('HH:mm:ss')}</span>
+        <span>
+          Tổng Thời Lượng :{" "}
+          {moment.utc(totalDuration * 1000).format("HH:mm:ss")}
+        </span>
       </span>
     </div>
   );

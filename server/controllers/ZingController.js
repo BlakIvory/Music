@@ -93,8 +93,6 @@ class ZingController {
     });
   }
 
-
-
   login = async (req, res) => {
     // console.log(req.query)
 
@@ -138,20 +136,43 @@ class ZingController {
     // console.log(MongoDB.client)
     const userService = new UserService(MongoDB.client);
     // const result = await userService.getAllfavorite(req.body);
-     const result = await userService.getAllfavorite(req.query);
+    const result = await userService.getAllfavorite(req.query);
     return res.send(result);
   };
 
-
-  addPlaylist = async (req, res) => { 
-     const userService = new UserService(MongoDB.client);
-     // const result = await userService.getAllfavorite(req.body);
-     const result = await userService.addPlaylist(req.body);
+  addPlaylist = async (req, res) => {
+    const userService = new UserService(MongoDB.client);
+    // const result = await userService.getAllfavorite(req.body);
+    const result = await userService.addPlaylist(req.query);
     return res.send(result);
-  }
+  };
 
+  getPlaylist = async (req, res) => {
+    // console.log(req.body)
 
+    const userService = new UserService(MongoDB.client);
 
+    const data = await userService.check(req.body);
+    console.log(data);
+    const result = {
+      data: data[0].Playlist,
+      status: 1,
+    };
+    return res.send(result);
+  };
+  addSongToPlaylist = async (req, res) => {
+    console.log(req.body)
+
+    const userService = new UserService(MongoDB.client);
+    // const data = await userService.check(req.body);
+    // console.log(data);
+    const result
+      = {
+      data: data[0].Playlist,
+      status: 1,
+    };
+    return res.send(result);
+  };
 }
 
 module.exports = new ZingController

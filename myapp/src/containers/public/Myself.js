@@ -11,6 +11,7 @@ import "reactjs-popup/dist/index.css";
 
 const Myself = () => {
   let [songs, setSongs] = useState([]);
+  var [listPlaylist,setListPlaylist] = useState([]);
   // let [Playlistsongs, setPlaylistsongs] = useState([]);
   let [inputNamePlaylist, setInputNamePlaylist] = useState([]);
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -24,32 +25,32 @@ const Myself = () => {
     setSongs(result);
   };
 
-    // async function handleGetAllPlaylist() {
-    //   const result = await apis.apiGetAllPlaylist(user);
-    //   // console.log(result);
-    //   setPlaylistsongs(result);
-    // }
-  const handleAddPlaylist= ()=>{
-    console.log(inputNamePlaylist,user)
+    async function handleGetAllPlaylist() {
+      const result = await apis.apiGetAllPlaylist(user);
+      console.log(result.data.data);
+      setListPlaylist(result.data.data)
+    }
+  async function handleAddPlaylist(){
+    // console.log(inputNamePlaylist, user)
+    const inputData = {
+      namePlaylist: inputNamePlaylist,
+      email: user.email,
+    };
+    // console.log(inputData)
+    const result = await apis.addPlaylist(inputData)
+    // console.log(result)
+    if (result.status === 200) {
+      Swal.fire("Thành Công !","Tạo Playlist mói thành công !!","success")
+    }
   };
 
   // const fetchFavorite =  handleGetAllFavorite(user)
 
   useEffect(() => {
     handleGetAllFavorite();
-    // handleGetAllPlaylist();
+    handleGetAllPlaylist();
   }, []);
    
-  useEffect(() => {
-    if (!user) {
-      Swal.fire({
-        title: "Title",
-        text: "Message",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
-    }
-  }, []);
   return (
     <div className="container flex col w-full">
       <div className="flex-none w-1/4 items-center justify-center gap-2">
@@ -80,10 +81,19 @@ const Myself = () => {
             <div className="bg-success.bg-gradient ">
               <div className="m-2">Nhập tên Playlist</div>
               <div className="m-2">
-                <input className="p-0" onChange={(e)=>{setInputNamePlaylist(e.target.value)}} placeholder="Vui lòng nhập tên playlist"></input>
+                <input
+                  className="p-0"
+                  onChange={(e) => {
+                    setInputNamePlaylist(e.target.value);
+                  }}
+                  placeholder="Vui lòng nhập tên playlist"
+                ></input>
               </div>
               <div className="flex items-center justify-content-center p-1 ">
-                <button className="border border-success rounded-lg p-1" onClick={handleAddPlaylist}>
+                <button
+                  className="border border-success rounded-lg p-1"
+                  onClick={handleAddPlaylist}
+                >
                   Tạo Playlist
                 </button>
               </div>
@@ -102,33 +112,41 @@ const Myself = () => {
               <span className="">BÀI HÁT</span>
               <span className="ml-[150px]">ALBUM</span>
               <span className="">THỜI LƯỢNG </span>
+              <span className="">XỬ LÍ </span>
             </div>
             <div className="flex flex-col w-[700px]">
               {songs?.data?.map((item, index) => (
                 <Song key={index} SongData={item} />
               ))}
             </div>
-            <div className="w-full h-[200px]"></div>
+            {/* <div className="w-full h-[200px]"></div> */}
           </div>
         </div>
-        {/* <div className="m-3">
+        <div className="m-3">
           <span className="flex items-center justify-center font-semibold">
             DANH SÁCH PLAYLIST
           </span>
           <div className=" w-full flex flex-col text-xs text-gray-600">
-            <div className=" flex justify-between items-center p-[10px] font-semibold">
-              <span className="">BÀI HÁT</span>
-              <span className="ml-[150px]">ALBUM</span>
-              <span className="">THỜI LƯỢNG </span>
-            </div>
-            <div className="flex flex-col w-[700px]">
-              {songs?.data?.map((item, index) => (
-                <Song key={index} SongData={item} />
-              ))}
-            </div>
+            {listPlaylist?.map((item, index) => (
+              <div key={index}>
+                <div>{item.namePlaylist}</div>
+                <div className=" flex justify-between items-center p-[10px] font-semibold">
+                  <span className="">BÀI HÁT</span>
+                  <span className="ml-[150px]">ALBUM</span>
+                  <span className="">THỜI LƯỢNG </span>
+                  <span className=""> XỬ LÍ </span>
+                </div>
+                <div className="flex flex-col w-[700px]">
+                  {listPlaylist?.listSongs?.map((item, index) => (
+                    <Song key={index} SongData={item} />
+                  ))}
+                </div>
+              </div>
+            ))}
+
             <div className="w-full h-[200px]"></div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

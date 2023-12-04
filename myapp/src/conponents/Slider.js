@@ -50,8 +50,8 @@ const Slider = () => {
           <Swiper
             spaceBetween={30}
             slidesPerView={3}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
+            // onSlideChange={() => console.log("slide change")}
+            // onSwiper={(swiper) => console.log(swiper)}
           >
             {banner.items?.map((item) => (
               <SwiperSlide key={item.encodeId}>
